@@ -11,16 +11,60 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sections.css">
 
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
   <script src="script/lodash.js"></script>
   <script src="script/jquery.js"></script>
+
+  <script src="config.js"></script>
 </head>
 
 <body>
 
+<div class="form-field">
+    <label>Tags</label>
+    <input type="text" />
+    <span class="info">Tags with '-' will be searched both normal and merged (e.g. 'super-hero' and 'superhero')</span>
+</div>
+
+<!--
+
+Keywords
+
+Tags (csv, -, merged)
+
+Date interval (from-to)
+
+Hide played tracks
+
+
+Track info
+- duration (min-max)
+- plays (min-max)
+- comments (min-max)
+- likes (min-max)
+- buy-link keywords (csv)
+- download enabled (yes/no)
+
+User info
+- followers (min-max)
+- countries (csv +null)
+
+
+-->
 
     <script>
+        SC.initialize({
+            client_id: SC_config.Soundcloud_ClientID
+        });
+
         jQuery(function(){
 
+// find all sounds of buskers licensed under 'creative commons share alike'
+            SC.get('/tracks', {
+                q: 'buskers', license: 'cc-by-sa'
+            }).then(function(tracks) {
+                console.log(tracks);
+            });
         });
     </script>
 

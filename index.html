@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="tpl/mchui/bootstrap/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sections.css">
 
@@ -20,11 +22,11 @@
 
 <body>
 
-<div class="form-field">
-    <label>Tags</label>
-    <input type="text" />
-    <span class="info">Tags with '-' will be searched both normal and merged (e.g. 'super-hero' and 'superhero')</span>
-</div>
+<!--<div class="form-field">-->
+    <!--<label>Tags</label>-->
+    <!--<input type="text" />-->
+    <!--<span class="info">Tags with '-' will be searched both normal and merged (e.g. 'super-hero' and 'superhero')</span>-->
+<!--</div>-->
 
 <!--
 
@@ -53,19 +55,19 @@ User info
 -->
 
     <script>
-        SC.initialize({
-            client_id: SC_config.Soundcloud_ClientID
-        });
-
-        jQuery(function(){
-
-// find all sounds of buskers licensed under 'creative commons share alike'
-            SC.get('/tracks', {
-                q: 'buskers', license: 'cc-by-sa'
-            }).then(function(tracks) {
-                console.log(tracks);
-            });
-        });
+//         SC.initialize({
+//             client_id: SC_config.Soundcloud_ClientID
+//         });
+//
+//         jQuery(function(){
+//
+// // find all sounds of buskers licensed under 'creative commons share alike'
+//             SC.get('/tracks', {
+//                 q: 'buskers', license: 'cc-by-sa'
+//             }).then(function(tracks) {
+//                 console.log(tracks);
+//             });
+//         });
     </script>
 
 </body>

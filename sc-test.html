@@ -44,9 +44,11 @@
         jQuery(function(){
 
             SC.get('/tracks', {
-                q: 'buskers', license: 'cc-by-sa'
+                limit: 5, linked_partitioning: 1,
+                q: 'mix' //, license: 'cc-by-sa'
             }).then(function(tracks) {
-                f1_listracks(tracks);
+                console.log(tracks);
+                f1_listracks(tracks.collection);
             });
 
             //scPlayer = SC.Widget(document.querySelector('#sc_player'));
@@ -60,7 +62,10 @@
 
         function f1_listracks(tracks){
             tracks.forEach((t)=>{
-                tracksArray.push(t);
+                SC.get('/users/'+t.user.id).then(function(user_info) {
+                    t.user_info = user_info;
+                    tracksArray.push(t);
+                });
             });
         }
 

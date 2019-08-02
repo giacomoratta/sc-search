@@ -53,11 +53,11 @@
             <li>plays#</li>
             <li>download? / download#</li>
             <li>buy-link: name+link</li>
+            <li>open-in-soundcloud</li>
             <li>...EXTRA...</li>
             <li>description</li>
             <li>tags</li>
             <li>meta-info</li>
-            <li>open-in-soundcloud</li>
         </ul>
     </section>
     <section id="user-info" style="border:1px solid #E6E6E6;margin: 8px;">
@@ -68,12 +68,11 @@
             <li>tracks#</li>
             <li>country</li>
             <li>real-name</li>
-            <li>download? / download#</li>
-            <li>buy-link: name+link</li>
+            <li>emails (detected)</li>
+            <li>open-in-soundcloud</li>
             <li>...EXTRA...</li>
             <li>description</li>
             <li>links (socials, urls, etc.)</li>
-            <li>open-in-soundcloud</li>
         </ul>
     </section>
     <section id="playlist" style="border:1px solid #E6E6E6;margin: 8px;">
@@ -144,8 +143,8 @@ User info
 <script>
 
     // GENERAL RULES
-    // > "tracks manager" does not know anyone
-    // > every UI manager knows "tracks manager"
+    // > "sc-tracks-manager" does not know anyone
+    // > every UI manager knows "sc-tracks-manager"
     // > PlaylistUI knows all UI managers
     // > FilterUI managers only knows PlaylistUI
     // > PlayerUI knows Widget-interface implementations
@@ -153,15 +152,15 @@ User info
 
 
     // filter-ui manager
-    // > handle, sanitize, adapt input data for tracks manager
-    // > load filter parameters in tracks manager
-    // > calls tracks manager's method to run a search
+    // > handle, sanitize, adapt input data for sc-tracks-manager
+    // > load filter parameters in sc-tracks-manager
+    // > calls sc-tracks-manager's method to run a search
     // > trigger playlist-ui to reset and update itself
 
 
-    // tracks manager
+    // sc-tracks-manager
     // > calls soundcloud API to perform a search
-    // > web storage for caching
+    // > local storage for caching (max 5 searchs)
     // >>> manual filter might produce few or no tracks
     // >>> it should be able to ask for next pages results until there are enough tracks (danger: infinite loop!)
     // > internal big objects "track search" with filter criteria and results
@@ -169,24 +168,36 @@ User info
     // > has "current" search and "searches array"
     // > everyone ask him to know the current track or to jump to another track
 
+    // sc-tracks-manager > status
+        // > stores current filter data
+        // > stores last track id played
+        // > stores last 3 SC next_href(s)
+
+
+    // sc-users-manager
+    // > calls soundcloud API to get user info
+    // > internal caching
+    // > local storage for caching
+
+
 
     // playlist-ui manager
-    // > ask tracks manager to play new track
+    // > ask sc-tracks-manager to play new track
     // > change his current track
     // > calls player-ui manager to switch the song
     // > calls trackinfo-ui manager to change track info
     // > calls userinfo-ui manager to change user info
-    // > if few tracks remains, ask tracks manager to load new tracks
+    // > if few tracks remains, ask sc-tracks-manager to load new tracks
     // >>> promise.then append new tracks
 
 
     // trackinfo-ui manager
-    // > ask tracks manager for current track
+    // > ask sc-tracks-manager for current track
     // > change his current track
 
 
     // userinfo-ui manager
-    // > ask tracks manager for current track
+    // > ask sc-tracks-manager for current track
     // > change his current track
 
 
@@ -194,7 +205,7 @@ User info
     // > exposes an object "widget" to control the track playback
     // >>> "widget" property is a general object (now=SC widget wrapper; future=my widget)
     // > call track manager to like/dislike current track
-    // > ask tracks manager for current track
+    // > ask sc-tracks-manager for current track
     // > change his current track
 
 

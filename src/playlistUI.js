@@ -22,9 +22,16 @@ const playlistUI = new (class {
     addTracks(tracks){
         let newItem;
         tracks.forEach((t)=>{
+            let awk_img = t.artwork_url || t.user.avatar_url;
             newItem = jQuery(`
-                <div data-tid="${t.id}">
-                    ${t.title}
+                <div class="item" data-tid="${t.id}">
+                    <div class="awk"><img src="${awk_img}" /></div>
+                    <div class="info">
+                        <div class="t">${t.title}</div>
+                        <div class="u">${t.user.username}</div>
+                        <div class="ct">${t.created_at}</div>
+                        <div class="dt">${t.duration/60000}</div>
+                    </div>
                 </div>
             `);
             this.$pBoxItems.append(newItem);

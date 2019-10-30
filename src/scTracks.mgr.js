@@ -6,6 +6,7 @@ const scTracksMgr = new (class {
     }
 
     reset(){
+        this.filterData = null;
         this.offset = -10,
         this.tracksMap = new Map();
         this.tracksArray = [];
@@ -14,23 +15,23 @@ const scTracksMgr = new (class {
     }
 
 
-    searchTracks(){
+    searchTracks(filterData){
         if(this.nextHref===false) return null;
+        if(filterData) this.filterData=filterData;
         return this.__searchTracks();
     }
 
 
     __searchTracks(){
         this.offset += 10;
-        return SC.get('/tracks', {
-            limit: 10,
-            linked_partitioning: 1,
-            offset:this.offset,
-            //tags:"t,f,g"
-            q: 'mix'
-            //, license: 'cc-by-sa'
-            //,
-        }).then((tracks)=>{
+        this.filterData.limit = 10;
+        this.filterData.linked_partitioning = 1;
+        this.filterData.offset = this.offset;
+
+        console.log(this.filterData);
+
+        return SC.get('/tracks', this.filterData)
+        .then((tracks)=>{
             let pUsers = [];
 
             this.nextHref = tracks.next_href;

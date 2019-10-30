@@ -2,26 +2,36 @@
 const filterUI = new (class {
 
     constructor(){
-        this.$filterBox = jQuery("#sc-filter");
-        this.$filterOpen = jQuery("#sc-filter .open");
-        this.$filterClose = jQuery("#sc-filter .close");
-        this.$filterOpenButton = jQuery("#sc-filter .open button.toggle");
-        this.$filterCloseButton = jQuery("#sc-filter .close button.toggle");
+        this.$fBox = jQuery("#sc-filter");
+        this.$fOpen = jQuery("#sc-filter .open");
+        this.$fClose = jQuery("#sc-filter .close");
+        this.$fOpenButton = jQuery("#sc-filter .open button.toggle");
+        this.$fCloseButton = jQuery("#sc-filter .close button.toggle");
+        this.$fSearchButton = jQuery("#fr_gosearch");
 
-        this.$filterCloseButton.click((e)=>{
-            this.$filterClose.hide();
-            this.$filterOpen.show(200);
+        this.$fCloseButton.click((e)=>{
+            this.$fClose.hide();
+            this.$fOpen.show(200);
         });
 
-        this.$filterOpenButton.click((e)=>{
-            this.$filterClose.show();
-            this.$filterOpen.hide(200);
+        this.$fOpenButton.click((e)=>{
+            this.$fClose.show();
+            this.$fOpen.hide(200);
+        });
+
+        this.$fSearchButton.click((e)=>{
+            const filterData = this.getFilterData();
+            scTracksMgr.reset();
+            scTracksMgr.searchTracks(filterData).then((tracks)=>{
+                console.log(tracks);
+                playlistUI.reset(tracks);
+            });
         });
     }
 
 
     getFilterData(){
-        
+
     }
 
 });

@@ -71,6 +71,10 @@
         </section>
     </section>
 
+    <section id="sc-player" class="bigsection">
+
+    </section>
+
     <section id="sc-playlist" class="bigsection">
         <div class="items">
 
@@ -81,8 +85,11 @@
     </section>
 
 
-<script src="src/filterUI.js"></script>
 <script src="src/scWidget.js"></script>
+<script src="src/scTracks.mgr.js"></script>
+<script src="src/playlistUI.js"></script>
+<script src="src/playerUI.js"></script>
+<script src="src/filterUI.js"></script>
 
 <script>
 
@@ -92,7 +99,7 @@
 
     jQuery(function(){
         scWidget.createElement({
-            container:"body"
+            container:"#sc-player"
         });
     });
 </script>
@@ -105,12 +112,12 @@
 
     jQuery(function(){
 
-        SC.get('/tracks', {
-            limit: 5, linked_partitioning: 1, tags:"techno"
-        }).then(function(tracks) {
-            console.log(tracks);
-            f1_listracks(tracks.collection);
-        });
+        // SC.get('/tracks', {
+        //     limit: 5, linked_partitioning: 1, tags:"techno"
+        // }).then(function(tracks) {
+        //     console.log(tracks);
+        //     f1_listracks(tracks.collection);
+        // });
 
         //scPlayer = SC.Widget(document.querySelector('#sc_player'));
 

@@ -43,6 +43,7 @@ const scTracksMgr = new (class {
                     if(this.filterData.extra.fw_max && user_info.followers>this.filterData.extra.fw_max) return;
                     if(this.filterData.extra.fw_min && user_info.followers<this.filterData.extra.fw_min) return;
 
+                    t.user_info = user_info;
                     this.tracksArray.push(t);
                     this.tracksMap.set(t.id,t);
                     tracksArrayTmp.push(t);

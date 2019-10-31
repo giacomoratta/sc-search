@@ -23,14 +23,33 @@ const playlistUI = new (class {
         let newItem;
         tracks.forEach((t)=>{
             let awk_img = t.artwork_url || t.user.avatar_url;
+            // print track info overview
+            // print track stats
+            // print user info
             newItem = jQuery(`
                 <div class="item" data-tid="${t.id}">
-                    <div class="awk"><img src="${awk_img}" /></div>
-                    <div class="info">
-                        <div class="t">${t.title}</div>
-                        <div class="u">${t.user.username}</div>
-                        <div class="ct">${t.created_at}</div>
-                        <div class="dt">${t.duration/60000}</div>
+                    <div>
+                        <!--widget-->
+                    </div>
+                    <div class="item_info">
+                        <div class="awk"><img src="${awk_img}" /></div>
+                        <div class="info">
+                            <div class="u">${t.user.username}</div>
+                            <div class="t">${t.title}</div>
+                            <div class="st">
+                                <div class="ct">${t.created_at}</div>
+                                <div class="dt">${t.duration/60000}</div>
+                                <div class="dt">${t.likes}</div>
+                                <div class="dt">${t.play_counter}</div>
+                                <div class="dt">${t.download}</div>
+                            </div>
+                            <div class="uinfo">
+                                <div class="lo">${t.user_info.location}</div>
+                                <div class="ct">${t.user_info.followers} <button>Follow/Followback</button></div>
+                                <div class="lo">${t.user_info.tracks}</div>
+                                <div class="dsc">${t.user_info.description}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `);

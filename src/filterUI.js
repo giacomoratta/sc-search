@@ -12,6 +12,7 @@ const filterUI = new (class {
         this.$input = {
             query: jQuery("#fr_query"),
             tags: jQuery("#fr_tags"),
+            download: jQuery("#fr_download"),
             datefrom: jQuery("#fr_datefrom"),
             dateto: jQuery("#fr_dateto"),
             fw_min: jQuery("#fr_fw_min"),

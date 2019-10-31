@@ -20,6 +20,8 @@ const filterUI = new (class {
             fr_drt_max: jQuery("#fr_drt_max")
         };
 
+        this.setDefaultValues();
+
         this.$fCloseButton.click((e)=>{
             this.$fClose.hide();
             this.$fOpen.show(200);
@@ -38,6 +40,23 @@ const filterUI = new (class {
                 playlistUI.reset(tracks);
             });
         });
+    }
+
+
+    setDefaultValues(){
+        let date_today = new Date();
+        let date_from = new Date();
+        date_from.setDate(date_today.getDate()-3);
+        this.$input.datefrom.val(date_from.getFullYear()+'-'+(date_from.getMonth()+1)+'-'+date_from.getDate());
+        this.$input.dateto.val(date_today.getFullYear()+'-'+(date_today.getMonth()+1)+'-'+date_today.getDate());
+
+        this.$input.tags.val('techno');
+
+        this.$input.fw_min.val(10);
+        this.$input.fw_max.val(2600);
+
+        this.$input.fr_drt_min.val(1);
+        this.$input.fr_drt_max.val(16);
     }
 
 
@@ -61,7 +80,7 @@ const filterUI = new (class {
         if(dt.datefrom || dt.dateto){
             dt.created_at = {};
             if(dt.datefrom) dt.created_at.from=dt.datefrom+" 00:00:00";
-            if(dt.dateto) dt.created_at.to=dt.dateto+" 00:00:00";
+            if(dt.dateto) dt.created_at.to=dt.dateto+" 23:59:59";
             delete dt.datefrom;
             delete dt.dateto;
         }

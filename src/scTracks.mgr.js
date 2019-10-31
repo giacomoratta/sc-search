@@ -33,18 +33,24 @@ const scTracksMgr = new (class {
         return SC.get('/tracks', this.filterData)
         .then((tracks)=>{
             let pUsers = [];
+            let tracksArrayTmp = [];
 
             this.nextHref = tracks.next_href;
             tracks.collection.forEach((t)=>{
                 pUsers.push(SC.get('/users/'+t.user.id).then((user_info)=>{
                     this.usersMap.set(user_info.id,user_info);
+
+                    if(this.filterData.extra.fw_max && user_info.followers>this.filterData.extra.fw_max) return;
+                    if(this.filterData.extra.fw_min && user_info.followers<this.filterData.extra.fw_min) return;
+
                     this.tracksArray.push(t);
                     this.tracksMap.set(t.id,t);
+                    tracksArrayTmp.push(t);
                 }));
             });
 
             return Promise.all(pUsers).then((x)=>{
-                return tracks.collection;
+                return tracksArrayTmp;
             })
         });
     }

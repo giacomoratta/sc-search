@@ -73,6 +73,8 @@ const filterUI = new (class {
         dt.fr_drt_min=this.$input.fr_drt_min.val();
         dt.fr_drt_max=this.$input.fr_drt_max.val();
 
+        dt.extra.download=this.$input.download.prop('checked');
+
         if(dt.q.length==0) delete dt.q;
         if(dt.tags.length==0) delete dt.tags;
 

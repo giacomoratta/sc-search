@@ -64,63 +64,98 @@
 
 <body style="padding:8px;">
 
-    <section id="sc-filter" class="bigsection">
-        <section class="close">
+    <section>
+        <section>
+
+            <section id="sc-filter" class="bigsection">
+                <section class="close">
+                    <div>
+                        <button class="toggle">open filter</button>
+                    </div>
+                </section>
+                <section class="open" style="display:none;">
+                    <div>
+                        <button class="toggle">close filter</button>
+                    </div>
+                    <p>
+                        Query
+                        <input id="fr_query" type="text" value="" />
+                    </p>
+                    <p>
+                        Tags
+                        <input id="fr_tags" type="text" value="" />
+                    </p>
+                    <p>
+                        Download
+                        <input id="fr_download" type="checkbox" />
+                    </p>
+                    <p>
+                        Date: from
+                        <input id="fr_datefrom" type="text" value="" style="width:100px;" />
+                        to
+                        <input id="fr_dateto" type="text" value="" style="width:100px;" />
+                    </p>
+                    <p>
+                        Followers: min
+                        <input id="fr_fw_min" type="text" value="" style="width:60px;" />
+                        max
+                        <input id="fr_fw_max" type="text" value="" style="width:60px;" />
+                    </p>
+                    <p>
+                        Duration: min
+                        <input id="fr_drt_min" type="text" value="" style="width:60px;" />
+                        max
+                        <input id="fr_drt_max" type="text" value="" style="width:60px;" />
+                    </p>
+                    <p>
+                        <button id="fr_gosearch">search</button>
+                    </p>
+                </section>
+            </section>
+
+            <section id="sc-player" class="bigsection">
+            </section>
+
+            <section id="sc-nav-info">
+
+                <section id="sc-trackinfo" class="bigsection">
+                    <div class="buttons">
+                        <button class="prev">prev</button>
+                        <button class="like">like</button>
+                        <button class="repost">repost</button>
+                        <button class="next">next</button>
+                    </div>
+                    <div class="comments">
+                        <input type="text" value="time/4*3">
+                        <button class="comment">comment</button>
+                    </div>
+                    <div class="trackinfo">
+                        <div>downloads, likes, reposts, buy</div>
+                        <div>desc</div>
+                    </div>
+                </section>
+
+                <section id="sc-userinfo" class="bigsection">
+                    <div class="overview">
+                        <div>picture</div>
+                        <div>real name, location, linkto</div>
+                        <div>followers, following, tracks</div>
+                    </div>
+                    <div class="tags">tags</div>
+                    <div class="desc">desc</div>
+                </section>
+
+            </section>
+        </section>
+
+        <section id="sc-playlist" class="bigsection">
+            <div class="items">
+
+            </div>
             <div>
-                <button class="toggle">open filter</button>
+                <button class="pl_loadmore">...load more...</button>
             </div>
         </section>
-        <section class="open" style="display:none;">
-            <div>
-                <button class="toggle">close filter</button>
-            </div>
-            <p>
-                Query
-                <input id="fr_query" type="text" value="" />
-            </p>
-            <p>
-                Tags
-                <input id="fr_tags" type="text" value="" />
-            </p>
-            <p>
-                Download
-                <input id="fr_download" type="checkbox" />
-            </p>
-            <p>
-                Date: from
-                <input id="fr_datefrom" type="text" value="" style="width:100px;" />
-                to
-                <input id="fr_dateto" type="text" value="" style="width:100px;" />
-            </p>
-            <p>
-                Followers: min
-                <input id="fr_fw_min" type="text" value="" style="width:60px;" />
-                max
-                <input id="fr_fw_max" type="text" value="" style="width:60px;" />
-            </p>
-            <p>
-                Duration: min
-                <input id="fr_drt_min" type="text" value="" style="width:60px;" />
-                max
-                <input id="fr_drt_max" type="text" value="" style="width:60px;" />
-            </p>
-            <p>
-                <button id="fr_gosearch">search</button>
-            </p>
-        </section>
-    </section>
-
-    <section id="sc-player" class="bigsection">
-
-    </section>
-
-    <section id="sc-playlist" class="bigsection">
-        <div class="items">
-
-        </div>
-        <div>
-            <button class="pl_loadmore">...load more...</button>
-        </div>
     </section>
 
 

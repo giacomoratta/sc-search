@@ -11,12 +11,27 @@ const playlistUI = new (class {
                 playlistUI.addTracks(tracks);
             });
         });
+
+        this.currentTrack = {
+            element:null,
+            id:null
+        }
     }
 
     reset(tracks){
         this.$pBoxItems.html('');
         if(!tracks) return;
         this.addTracks(tracks);
+    }
+
+    play(element){
+        this.currentTrack.element = element;
+        this.currentTrack.id = element.dataset.tid;
+        playerUI.play(element.dataset.tid);
+    }
+
+    next(){
+
     }
 
     addTracks(tracks){
@@ -55,7 +70,7 @@ const playlistUI = new (class {
             `);
             this.$pBoxItems.append(newItem);
             newItem.click((e)=>{
-                playerUI.play(e.currentTarget.dataset.tid);
+                this.play(e.currentTarget)
             })
         });
     }

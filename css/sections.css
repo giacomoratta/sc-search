@@ -1,0 +1,101 @@
+
+@media ( min-width: 700px) {
+    section.main-container {
+        display: flex;
+    }
+    section.main-container #sc-playlist {
+        width: 46%;
+        flex-grow: 1;
+        flex-shrink: 0;
+        margin-left: 2%;
+    }
+}
+
+.bigsection {
+    border:1px solid #DDDDDD;
+    border-radius: 3px;
+    padding:16px;
+    margin-bottom: 16px;
+}
+
+.smbox {
+    margin-bottom: 8px;
+}
+
+#sc-playlist {
+    height: 300px;
+    overflow: overlay;
+}
+
+#sc-playlist .item {
+    margin-bottom: 8px;
+    border:1px solid #EEEEEE;
+    padding:4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: stretch;
+    align-items: flex-start;
+}
+
+
+#sc-playlist .item .awk img {
+    width: 50px;
+    height: 50px;
+}
+
+#sc-playlist .item .info {
+    flex-grow: 1;
+    padding-left: 8px;
+}
+
+
+#sc-trackinfo .buttons button {
+    margin-right: 0.5em;
+}
+
+#sc-trackinfo .comments {
+    display: flex;
+}
+#sc-trackinfo .comments input {
+    flex-grow: 1;
+}
+
+#sc-trackinfo .meta,
+#sc-userinfo .meta {
+    display: flex;
+}
+#sc-trackinfo .meta>div,
+#sc-userinfo .meta>div {
+    margin-right: 0.4em;
+}
+#sc-trackinfo .meta .value,
+#sc-userinfo .meta .value {
+    font-weight: bold;
+}
+
+
+#sc-trackinfo .buttons button {
+    margin-right: 0.5em;
+}
+
+#sc-trackinfo .trackdesc,
+#sc-userinfo .userdesc {
+    clear: both;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-top: 0.6em;
+    font-size: 0.9em;
+    color: #555555;
+}
+
+#sc-trackinfo .tracktags {
+    font-size: 0.85em;
+}
+
+
+#sc-userinfo .overview .avatar {
+    float: left;
+    margin:0 0.8em 0 0;
+}
+#sc-userinfo .overview>div {
+    margin-bottom: 0.4em;
+}

@@ -8,3 +8,9 @@ body {
 strong {
     font-weight: 600;
 }
+
+button {
+    font-variant: small-caps;
+    font-size: 0.85em;
+    padding: 0.3em 0.8em;
+}

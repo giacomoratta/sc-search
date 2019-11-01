@@ -38,7 +38,7 @@ const filterUI = new (class {
             scTracksMgr.reset();
             scTracksMgr.searchTracks(filterData).then((tracks)=>{
                 console.log(tracks);
-                playlistUI.reset(tracks);
+                playlistMgr.reset(tracks);
             });
         });
     }

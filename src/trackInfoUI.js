@@ -16,7 +16,7 @@ const trackInfoUI = new (class {
         this.$tiBox_comments_btn = this.$tiBox_comments.find("button");
 
         this.$tiBox_prevTrack.click((e)=>{
-            playlistUI.prev((track)=>{
+            playlistMgr.prev((track)=>{
                 if(!track){
                     console.warn("no more tracks");
                     return;
@@ -25,7 +25,7 @@ const trackInfoUI = new (class {
         });
 
         this.$tiBox_nextTrack.click((e)=>{
-            playlistUI.next((track)=>{
+            playlistMgr.next((track)=>{
                 if(!track){
                     console.warn("no more tracks");
                     return;
@@ -35,13 +35,13 @@ const trackInfoUI = new (class {
     }
 
     xnext(track_id){
-        playlistUI.next((nextTrack)=>{
+        playlistMgr.next((nextTrack)=>{
             if(!nextTrack){
                 console.warn("no more tracks");
                 return;
             }
-            //playlistUI.goTo();
-            //playlistUI.play()
+            //playlistMgr.goTo();
+            //playlistMgr.play()
         });
     }
 

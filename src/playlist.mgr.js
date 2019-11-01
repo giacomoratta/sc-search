@@ -1,5 +1,5 @@
 
-const playlistUI = new (class {
+const playlistMgr = new (class {
 
     constructor(){
         this.$pBox = jQuery("#sc-playlist");
@@ -8,7 +8,7 @@ const playlistUI = new (class {
 
         this.$pLoadmoreBtn.click((e)=>{
             scTracksMgr.searchTracks().then((tracks)=>{
-                playlistUI.addTracks(tracks);
+                playlistMgr.addTracks(tracks);
             });
         });
 
@@ -24,15 +24,22 @@ const playlistUI = new (class {
         this.addTracks(tracks);
     }
 
+    
     play(element){
         this.currentTrack.element = element;
         this.currentTrack.id = element.dataset.tid;
         playerUI.play(element.dataset.tid);
     }
 
-    next(){
 
+    playNext(){
     }
+
+
+    playPrev(){
+        
+    }
+
 
     addTracks(tracks){
         let newItem;

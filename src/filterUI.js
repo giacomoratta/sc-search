@@ -35,7 +35,6 @@ const filterUI = new (class {
 
         this.$fSearchButton.click((e)=>{
             const filterData = this.getFilterData();
-            scTracksMgr.reset();
             scTracksMgr.searchTracks(filterData).then((tracks)=>{
                 console.log(tracks);
                 playlistMgr.reset(tracks);
@@ -47,9 +46,10 @@ const filterUI = new (class {
     setDefaultValues(){
         let date_today = new Date();
         let date_from = new Date();
+        date_today.setDate(date_today.getDate()+1);
         date_from.setDate(date_today.getDate()-3);
-        this.$input.datefrom.val(date_from.getFullYear()+'-'+(date_from.getMonth()+1)+'-'+date_from.getDate());
-        this.$input.dateto.val(date_today.getFullYear()+'-'+(date_today.getMonth()+1)+'-'+date_today.getDate());
+        this.$input.datefrom.val(date_from.getFullYear()+'-'+(date_from.getMonth()+1).toString().padStart(2,'0')+'-'+date_from.getDate().toString().padStart(2,'0'));
+        this.$input.dateto.val(date_today.getFullYear()+'-'+(date_today.getMonth()+1).toString().padStart(2,'0')+'-'+date_today.getDate().toString().padStart(2,'0'));
 
         this.$input.tags.val('techno');
 
@@ -83,7 +83,7 @@ const filterUI = new (class {
         if(dt.datefrom || dt.dateto){
             dt.created_at = {};
             if(dt.datefrom) dt.created_at.from=dt.datefrom+" 00:00:00";
-            if(dt.dateto) dt.created_at.to=dt.dateto+" 23:59:59";
+            if(dt.dateto) dt.created_at.to=dt.dateto+" 00:00:00";
             delete dt.datefrom;
             delete dt.dateto;
         }

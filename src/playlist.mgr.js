@@ -24,7 +24,7 @@ const playlistMgr = new (class {
         this.addTracks(tracks);
     }
 
-    
+
     play(element){
         this.currentTrack.element = element;
         this.currentTrack.id = element.dataset.tid;
@@ -37,41 +37,41 @@ const playlistMgr = new (class {
 
 
     playPrev(){
-        
+
     }
 
 
     addTracks(tracks){
-        let newItem;
+        let newItem, awk_img, created_at;
         tracks.forEach((t)=>{
-            let awk_img = t.artwork_url || t.user.avatar_url;
+            awk_img = t.artwork_url || t.user.avatar_url;
+            created_at = new Date(t.created_at);
             // print track info overview
             // print track stats
             // print user info
+            //
+            //
+
             newItem = jQuery(`
                 <div class="item" data-tid="${t.id}">
-                    <div>
-                        <!--widget-->
+                    <div class="awk"><img src="${awk_img}" /></div>
+                    <div class="iinfo">
+                        <div class="username">${t.user_info.username}</div>
+                        <div class="title">${t.title}</div>
+                        <div class="small duration">Duration: ${uu.string.msToDuration(t.duration)}</div>
+                        <div class="small created_at">Created at: ${created_at.getFullYear()}/${created_at.getMonth()+1}/${created_at.getDate()}</div>
                     </div>
-                    <div class="item_info">
-                        <div class="awk"><img src="${awk_img}" /></div>
-                        <div class="info">
-                            <div class="u">${t.user.username}</div>
-                            <div class="t">${t.title}</div>
-                            <div class="st">
-                                <div class="ct">${t.created_at}</div>
-                                <div class="dt">${t.duration/60000}</div>
-                                <div class="dt">${t.likes}</div>
-                                <div class="dt">${t.play_counter}</div>
-                                <div class="dt">${t.download}</div>
-                            </div>
-                            <div class="uinfo">
-                                <div class="lo">${t.user_info.location}</div>
-                                <div class="ct">${t.user_info.followers} <button>Follow/Followback</button></div>
-                                <div class="lo">${t.user_info.tracks}</div>
-                                <div class="dsc">${t.user_info.description}</div>
-                            </div>
-                        </div>
+                    <div class="kv_box small tstats">
+                        <div class="likes"><span class="value">${t.likes_count}</span> <span class="label">likes</span> //</div>
+                        <div class="plays"><span class="value">${t.playback_count}</span> <span class="label">plays</span> //</div>
+                        <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span></div>
+                        ${t.downloadable ? `// <div class="downloads"><span class="value">${t.download_count}</span> <span class="label">downloads</span></div>` : '' }
+                        ${t.downloadable ? `// <div class="downloadable"><strong>D</strong></div>` : '' }
+                    </div>
+                    <div class="kv_box small ustats">
+                        ${(t.user_info.country || t.user_info.city) ? `<div class="location">${t.user_info.country ? `${t.user_info.country}` : '' }${t.user_info.city ? `, ${t.user_info.city}` : '' } //</div>` : '' }
+                        <div class="followers"><span class="value">${t.user_info.followers_count}</span> <span class="label">followers</span> //</div>
+                        <div class="tracks"><span class="value">${t.user_info.track_count}</span> <span class="label">tracks</span></div>
                     </div>
                 </div>
             `);

@@ -7,7 +7,8 @@ const scTracksMgr = new (class {
 
     reset(){
         this.filterData = null;
-        this.offset = -10,
+        this.filterLimit = 10;
+        this.filterOffset = this.filterLimit*(-1);
         this.tracksMap = new Map();
         this.tracksArray = [];
         this.usersMap = new Map();
@@ -15,45 +16,60 @@ const scTracksMgr = new (class {
     }
 
 
-    searchTracks(filterData){
+    async searchTracks(filterData){
         if(this.nextHref===false) return null;
-        if(filterData) this.filterData=filterData;
-        return this.__searchTracks();
+        if(filterData){
+            this.reset();
+            this.filterData=filterData;
+        }
+        let newTracks = [];
+        let maxAttempts = 3;
+        let err = null;
+
+        while(!err && newTracks.length<this.filterLimit && maxAttempts>0){
+            maxAttempts--;
+            let [err,tracks] = await uu.to(this.__searchTracks());
+            if(tracks) newTracks=newTracks.concat(tracks);
+        }
+        return newTracks;
     }
 
 
-    __searchTracks(){
-        this.offset += 10;
-        this.filterData.limit = 10;
+    async __searchTracks(){
+        this.filterOffset += this.filterLimit;
+        this.filterData.limit = this.filterLimit;
         this.filterData.linked_partitioning = 1;
-        this.filterData.offset = this.offset;
+        this.filterData.offset = this.filterOffset;
 
-        return SC.get('/tracks', this.filterData)
-        .then((tracks)=>{
-            let pUsers = [];
-            let tracksArrayTmp = [];
+        const filterObj = { ...scTracksMgr.filterData };
+        delete filterObj.extra;
 
-            this.nextHref = tracks.next_href;
-            tracks.collection.forEach((t)=>{
-                if(this.filterData.extra.download===true && t.downloadable!==true) return;
+        let [err,tracks] = await uu.to(SC.get('/tracks', filterObj));
+        if(err || !tracks) return [err,tracks];
 
-                pUsers.push(SC.get('/users/'+t.user.id).then((user_info)=>{
-                    this.usersMap.set(user_info.id,user_info);
+        let pUsers = [];
+        let tracksArrayTmp = [];
 
-                    if(this.filterData.extra.fw_max && user_info.followers_count>this.filterData.extra.fw_max) return;
-                    if(this.filterData.extra.fw_min && user_info.followers_count<this.filterData.extra.fw_min) return;
+        this.nextHref = tracks.next_href;
+        await uu.asyncForEach(tracks.collection, async (t)=>{
+            if(this.filterData.extra.download===true && t.downloadable!==true) return;
 
-                    t.user_info = user_info;
-                    this.tracksArray.push(t);
-                    this.tracksMap.set(t.id,t);
-                    tracksArrayTmp.push(t);
-                }));
-            });
+            let [err,user_info] = await uu.to(SC.get('/users/'+t.user.id));
+            if(err || !user_info) return;
 
-            return Promise.all(pUsers).then((x)=>{
-                return tracksArrayTmp;
-            })
+            this.usersMap.set(user_info.id,user_info);
+
+            if(this.filterData.extra.fw_max && user_info.followers_count>this.filterData.extra.fw_max) return;
+            if(this.filterData.extra.fw_min && user_info.followers_count<this.filterData.extra.fw_min) return;
+
+            t.user_info = user_info;
+            this.tracksArray.push(t);
+            this.tracksMap.set(t.id,t);
+            tracksArrayTmp.push(t);
+            $d(t);
         });
+
+        return tracksArrayTmp;
     }
 
 });

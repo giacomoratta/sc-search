@@ -52,7 +52,7 @@ const userInfoUI = new (class {
         const ct = scTracksMgr.tracksMap.get(playlistMgr.currentTrack.id);
         console.log(ct,ct.user_info,ct.user_info.id);
         if(!ct || !ct.user_info) return;
-        let [err,tracks] = await uu.to(soundcloudAPI.followUser(u.id));
+        let [err,tracks] = await uu.to(soundcloudAPI.followUser(ct.user_info.id));
         console.log(err,tracks);
     }
 

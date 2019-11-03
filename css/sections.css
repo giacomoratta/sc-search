@@ -48,20 +48,19 @@
 }
 
 
-#sc-trackinfo .buttons button {
+#sc-pnav .buttons button {
     margin-right: 0.5em;
 }
-
-#sc-trackinfo .comments {
+#sc-pnav .comments {
     display: flex;
 }
-#sc-trackinfo .comments input {
+#sc-pnav .comments input {
     flex-grow: 1;
 }
-
-#sc-trackinfo .buttons button {
+#sc-pnav .buttons button {
     margin-right: 0.5em;
 }
+
 
 #sc-trackinfo .trackdesc,
 #sc-userinfo .userdesc {
@@ -72,6 +71,7 @@
     color: #555555;
     max-height: 15em;
     overflow: auto;
+    max-width:45vw;
 }
 
 #sc-trackinfo .tracktags {
@@ -89,21 +89,35 @@
 }
 
 
+#sc-trackinfo .overview .title,
+#sc-userinfo .overview .name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+
 
 /* playlist items */
 
 #sc-playlist {
     padding: 0;
 }
+#sc-playlist .items {
+    position: relative;
+}
 #sc-playlist .item {
     padding:0.8em 0.8em 0.8em 1.1em;
     cursor: pointer;
     font-size: 0.9em;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 #sc-playlist .item.active,
 #sc-playlist .item:hover, #sc-playlist .item:active {
     background-color: #EEEEEE;
+}
+#sc-playlist .item.playing {
+    background-color: #DDDDDD;
 }
 
 #sc-playlist .item .awk {

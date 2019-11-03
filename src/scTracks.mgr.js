@@ -57,19 +57,38 @@ const scTracksMgr = new (class {
             let [err,user_info] = await uu.to(SC.get('/users/'+t.user.id));
             if(err || !user_info) return;
 
-            this.usersMap.set(user_info.id,user_info);
+            this.usersMap.set(user_info.id.toString(),user_info);
 
             if(this.filterData.extra.fw_max && user_info.followers_count>this.filterData.extra.fw_max) return;
             if(this.filterData.extra.fw_min && user_info.followers_count<this.filterData.extra.fw_min) return;
 
             t.user_info = user_info;
             this.tracksArray.push(t);
-            this.tracksMap.set(t.id,t);
+            this.tracksMap.set(t.id.toString(),t);
             tracksArrayTmp.push(t);
             $d(t);
         });
 
         return tracksArrayTmp;
+    }
+
+
+
+    async likeTrack(track_id){
+        await SC.connect();
+        await SC.put('/me/favorites/'+track_id);
+    }
+
+
+    async repostTrack(track_id){
+        await SC.connect();
+        await SC.put('/e1/me/track_reposts/'+track_id);
+    }
+
+
+    async followAuthor(track_id){
+        await SC.connect();
+        await SC.put('/me/followings/'+this.tracksMap.get(track_id).user_info.id);
     }
 
 });

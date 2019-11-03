@@ -3,46 +3,31 @@ const trackInfoUI = new (class {
 
     constructor(){
         this.$tiBox = jQuery("#sc-trackinfo");
-        this.$tiBox_trackinfo = this.$tiBox.find(".trackinfo");
-
-        this.$tiBox_buttons = this.$tiBox.find(".buttons");
-        this.$tiBox_prevTrack = this.$tiBox_buttons.find(".prev");
-        this.$tiBox_nextTrack = this.$tiBox_buttons.find(".next");
-        this.$tiBox_likeTrack = this.$tiBox_buttons.find(".like");
-        this.$tiBox_repostTrack = this.$tiBox_buttons.find(".repost");
-
-        this.$tiBox_comments = this.$tiBox.find(".comments");
-        this.$tiBox_comments_text = this.$tiBox_comments.find("input");
-        this.$tiBox_comments_btn = this.$tiBox_comments.find("button");
-
-        this.$tiBox_prevTrack.click((e)=>{
-            playlistMgr.prev((track)=>{
-                if(!track){
-                    console.warn("no more tracks");
-                    return;
-                }
-            });
-        });
-
-        this.$tiBox_nextTrack.click((e)=>{
-            playlistMgr.next((track)=>{
-                if(!track){
-                    console.warn("no more tracks");
-                    return;
-                }
-            });
-        });
     }
 
-    xnext(track_id){
-        playlistMgr.next((nextTrack)=>{
-            if(!nextTrack){
-                console.warn("no more tracks");
-                return;
-            }
-            //playlistMgr.goTo();
-            //playlistMgr.play()
-        });
+    setInfo(track_id){
+        const t = scTracksMgr.tracksMap.get(track_id);
+        this.$tiBox.html('');
+        this.$tiBox.attr('data-tid','');
+        if(!t){
+            console.error('no track found');
+            return;
+        }
+
+        this.$tiBox.attr('data-tid',t.id);
+        this.$tiBox.html(`
+            <div class="smbox overview">
+                <div class="title"><a href="${t.permalink_url}" target="blank">${t.title}</a></div>
+            </div>
+            <div class="smbox kv_box meta">
+                <div class="likes"><span class="value">${t.likes_count}</span> <span class="label">likes</span> //</div>
+                <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span> //</div>
+                ${t.downloadable ? `<div class="downloads"><a href="${t.download_url ? t.download_url : '#'}"><span class="value">${t.download_count}</span> <span class="label">downloads</span> //</div>` : '' }
+                <div class="buy"><a href="${t.purchase_url ? t.purchase_url : '#' }" target="blank">buy</a></div>
+            </div>
+            <div class="smbox trackdesc">${t.description}</div>
+            <div class="smbox tracktags"><strong>${t.genre}</strong>, ${t.tag_list}</div>
+        `);
     }
 
 });

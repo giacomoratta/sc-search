@@ -25,7 +25,10 @@ const playlistMgr = new (class {
 
     reset(tracks){
         this.$pBoxItems.html('');
-        if(!tracks) return;
+        if(!tracks){
+            console.warn('playlistMgr - No track found');
+            return;
+        }
         this.addTracks(tracks);
         this.$pBox.scrollTop(0);
     }

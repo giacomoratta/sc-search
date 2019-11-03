@@ -3,24 +3,23 @@ const userInfoUI = new (class {
 
     constructor(){
         this.$uiBox = jQuery("#sc-userinfo");
-
-        this.$uiBox.find('.follow').click((e)=>{
-            scTracksMgr.followAuthor(playlistMgr.currentTrack.id);
-        });
     }
 
     setInfo(track_id){
+        this.$uiBox.hide();
         const t = scTracksMgr.tracksMap.get(track_id);
         this.$uiBox.html('');
         this.$uiBox.attr('data-uid','');
         if(!t){
-            console.error('no track found');
+            console.warn('userInfoUI - No track found');
             return;
         }
         if(!t.user_info){
-            console.error('no user found');
+            console.warn('userInfoUI - No track info found');
             return;
         }
+
+        this.$uiBox.show();
         const u = t.user_info;
 
         this.$uiBox.attr('data-uid',u.id);
@@ -41,6 +40,20 @@ const userInfoUI = new (class {
                 <button class="follow">Follow/Followback</button>
             </div>
         `);
+
+        this.$uiBox.find('.follow').click((e)=>{
+            this.followCurrentAuthor()
+        });
+    }
+
+
+
+    async followCurrentAuthor(){
+        const ct = scTracksMgr.tracksMap.get(playlistMgr.currentTrack.id);
+        console.log(ct,ct.user_info,ct.user_info.id);
+        if(!ct || !ct.user_info) return;
+        let [err,tracks] = await uu.to(soundcloudAPI.followUser(u.id));
+        console.log(err,tracks);
     }
 
 });

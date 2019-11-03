@@ -39,6 +39,7 @@
                 <section class="open" style="xdisplay:none;">
                     <div>
                         <button class="toggle">close filter</button>
+                        <button class="resetf">reset filter</button>
                     </div>
                     <p>
                         Query
@@ -77,7 +78,7 @@
                 </section>
             </section>
 
-            <section id="sc-player" class="bigsection" style="padding:0;">
+            <section id="sc-player" class="bigsection" style="padding:0;display:none;">
                 <section id="sc-pnav" style="padding:16px;">
                     <div class="smbox buttons">
                         <button class="vol-less">vol-</button>
@@ -92,13 +93,13 @@
                         <button class="next">next</button>
                     </div>
                     <div class="smbox comments">
-                        <input type="text" value="time/4*3">
+                        <input class="comment_text" type="text" value="">
                         <button class="comment">comment</button>
                     </div>
                 </section>
             </section>
 
-            <section id="sc-trackinfo" class="bigsection">
+            <section id="sc-trackinfo" class="bigsection" style="display:none;">
                 <div class="smbox overview">
                     <div class="title"><a href="#linkto" target="blank">track name</a></div>
                 </div>
@@ -115,7 +116,7 @@
                 <div class="smbox tracktags">tag1, tagtag2, tag3, tag44</div>
             </section>
 
-            <section id="sc-userinfo" class="bigsection">
+            <section id="sc-userinfo" class="bigsection" style="display:none;">
                 <div class="overview">
                     <div class="avatar"><img src="" style="width:80px; height:80px; background-color:#333;" /></div>
                     <div class="name"><a href="#linkto" target="blank">artist name</a></div>
@@ -147,7 +148,7 @@
     </section>
 
 
-
+<script src="src/soundcloudAPI.js"></script>
 <script src="src/utils.js"></script>
 <script src="src/string.utils.js"></script>
 <script src="src/scWidget.js"></script>
@@ -165,11 +166,11 @@
   redirect_uri: 'http://www.mpl.cloud/apps/tksearch'
     });
 
-    SC.connect().then(function() {
-  return SC.get('/me');
-}).then(function(me) {
-  alert('Hello, ' + me.username);
-});
+//     SC.connect().then(function() {
+//   return SC.get('/me');
+// }).then(function(me) {
+//   alert('Hello, ' + me.username);
+// });
 
     scWidget.setParent("#sc-player");
 

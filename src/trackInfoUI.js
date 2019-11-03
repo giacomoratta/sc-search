@@ -6,14 +6,16 @@ const trackInfoUI = new (class {
     }
 
     setInfo(track_id){
+        this.$tiBox.hide();
         const t = scTracksMgr.tracksMap.get(track_id);
         this.$tiBox.html('');
         this.$tiBox.attr('data-tid','');
         if(!t){
-            console.error('no track found');
+            console.warn('trackInfoUI - No track found');
             return;
         }
 
+        this.$tiBox.show();
         this.$tiBox.attr('data-tid',t.id);
         this.$tiBox.html(`
             <div class="smbox overview">

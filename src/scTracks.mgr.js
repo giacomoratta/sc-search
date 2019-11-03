@@ -44,7 +44,7 @@ const scTracksMgr = new (class {
         const filterObj = { ...scTracksMgr.filterData };
         delete filterObj.extra;
 
-        let [err,tracks] = await uu.to(SC.get('/tracks', filterObj));
+        let [err,tracks] = await uu.to(soundcloudAPI.searchTracks(filterObj));
         if(err || !tracks) return [err,tracks];
 
         let pUsers = [];
@@ -54,7 +54,7 @@ const scTracksMgr = new (class {
         await uu.asyncForEach(tracks.collection, async (t)=>{
             if(this.filterData.extra.download===true && t.downloadable!==true) return;
 
-            let [err,user_info] = await uu.to(SC.get('/users/'+t.user.id));
+            let [err,user_info] = await uu.to(soundcloudAPI.getUser(t.user.id));
             if(err || !user_info) return;
 
             this.usersMap.set(user_info.id.toString(),user_info);
@@ -70,25 +70,6 @@ const scTracksMgr = new (class {
         });
 
         return tracksArrayTmp;
-    }
-
-
-
-    async likeTrack(track_id){
-        await SC.connect();
-        await SC.put('/me/favorites/'+track_id);
-    }
-
-
-    async repostTrack(track_id){
-        await SC.connect();
-        await SC.put('/e1/me/track_reposts/'+track_id);
-    }
-
-
-    async followAuthor(track_id){
-        await SC.connect();
-        await SC.put('/me/followings/'+this.tracksMap.get(track_id).user_info.id);
     }
 
 });

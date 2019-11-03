@@ -7,6 +7,7 @@ const filterUI = new (class {
         this.$fClose = jQuery("#sc-filter .close");
         this.$fOpenButton = jQuery("#sc-filter .open button.toggle");
         this.$fCloseButton = jQuery("#sc-filter .close button.toggle");
+        this.$fResetButton = jQuery("#sc-filter .open button.resetf");
         this.$fSearchButton = jQuery("#fr_gosearch");
 
         this.$input = {
@@ -21,7 +22,9 @@ const filterUI = new (class {
             fr_drt_max: jQuery("#fr_drt_max")
         };
 
-        this.setDefaultValues();
+        if(this.restoreFilterSettings()!==true) {
+            this.setDefaultValues();
+        }
 
         this.$fCloseButton.click((e)=>{
             this.$fClose.hide();
@@ -33,12 +36,19 @@ const filterUI = new (class {
             this.$fOpen.hide(200);
         });
 
-        this.$fSearchButton.click((e)=>{
+        this.$fResetButton.click((e)=>{
+            this.setDefaultValues();
+        });
+
+        this.$fSearchButton.click(async (e)=>{
+            this.saveFilterSettings();
             const filterData = this.getFilterData();
-            scTracksMgr.searchTracks(filterData).then((tracks)=>{
-                console.log(tracks);
-                playlistMgr.reset(tracks);
-            });
+            const tracks = await scTracksMgr.searchTracks(filterData);
+            if(!tracks || tracks.length==0){
+                alert("filterUI - No tracks found");
+                console.warn("filterUI - No tracks found");
+            }
+            playlistMgr.reset(tracks);
         });
     }
 
@@ -51,6 +61,7 @@ const filterUI = new (class {
         this.$input.datefrom.val(date_from.getFullYear()+'-'+(date_from.getMonth()+1).toString().padStart(2,'0')+'-'+date_from.getDate().toString().padStart(2,'0'));
         this.$input.dateto.val(date_today.getFullYear()+'-'+(date_today.getMonth()+1).toString().padStart(2,'0')+'-'+date_today.getDate().toString().padStart(2,'0'));
 
+        this.$input.query.val("");
         this.$input.tags.val('techno');
 
         this.$input.fw_min.val(10);
@@ -58,6 +69,46 @@ const filterUI = new (class {
 
         this.$input.fr_drt_min.val(1);
         this.$input.fr_drt_max.val(16);
+        this.$input.download.prop('checked',false);
+    }
+
+
+    restoreFilterSettings(){
+        const filtersettings = localStorage.getItem('scFilterSettings');
+        if(!filtersettings) return false;
+        let dt;
+        try{
+            dt = JSON.parse(filtersettings)
+        }catch(e){
+            console.log('restoreFilterSettings',e);
+            return false;
+        }
+        this.$input.query.val(dt.q);
+        this.$input.tags.val(dt.tags);
+        this.$input.datefrom.val(dt.datefrom);
+        this.$input.dateto.val(dt.dateto);
+        this.$input.fw_min.val(dt.extra.fw_min);
+        this.$input.fw_max.val(dt.extra.fw_max);
+        this.$input.fr_drt_min.val(dt.fr_drt_min);
+        this.$input.fr_drt_max.val(dt.fr_drt_max);
+        this.$input.download.prop('checked',dt.extra.download);
+        return true;
+    }
+
+
+    saveFilterSettings(){
+        const dt = {};
+        dt.q=this.$input.query.val();
+        dt.tags=this.$input.tags.val();
+        dt.datefrom=this.$input.datefrom.val();
+        dt.dateto=this.$input.dateto.val();
+        dt.extra = {};
+        dt.extra.fw_min=this.$input.fw_min.val();
+        dt.extra.fw_max=this.$input.fw_max.val();
+        dt.fr_drt_min=this.$input.fr_drt_min.val();
+        dt.fr_drt_max=this.$input.fr_drt_max.val();
+        dt.extra.download=this.$input.download.prop('checked');
+        localStorage.setItem('scFilterSettings', JSON.stringify(dt));
     }
 
 

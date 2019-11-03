@@ -4,14 +4,30 @@ const scWidget = new (class {
     constructor(){
         this.$elmt = null;
         this.$parent = null;
-        this._scWidget = null;
-        this._scWidgetOptions = {
+        this._soundcloudWidget = null;
+        this._soundcloudWidgetOptions = {
             volume:20
         };
+
+        this.EVENTS = SC.Widget.Events;
+        this.EventCallbacks = {};
     }
 
     setParent(q){
         this.$parent = jQuery(q);
+    }
+
+    addEventCb(ev,cb){
+        if(!this.EventCallbacks[ev]) this.EventCallbacks[ev]=[];
+        this.EventCallbacks[ev].push(cb);
+    }
+
+    bindEvents(player){
+        Object.keys(this.EventCallbacks).forEach((ev)=>{
+            this.EventCallbacks[ev].forEach((cb)=>{
+                player.bind(ev, cb);
+            });
+        });
     }
 
 
@@ -28,10 +44,11 @@ const scWidget = new (class {
         this.$elmt = jQuery(`<iframe id="scwdg1" src="${basic_url}" width="100%" height="126" scrolling="no" frameborder="no" allow="autoplay"></iframe>`);
         this.$parent.prepend(this.$elmt);
 
-        this._scWidget = SC.Widget('scwdg1');
+        this._soundcloudWidget = SC.Widget('scwdg1');
 
         window.setTimeout(()=>{
-            let player = this._scWidget;
+            let player = this._soundcloudWidget;
+            this.bindEvents(player);
             //player.bind(SC.Widget.Events.READY, function(){ console.log(SC.Widget.Events.READY); });
             //player.bind(SC.Widget.Events.PLAY, function(){ console.log(SC.Widget.Events.PLAY); });
             //player.bind(SC.Widget.Events.PAUSE , function(){ console.log(SC.Widget.Events.PAUSE ); });
@@ -44,56 +61,56 @@ const scWidget = new (class {
 
 
     play(){
-        if(!this._scWidget) return;
-        this._scWidget.play();
+        if(!this._soundcloudWidget) return;
+        this._soundcloudWidget.play();
     }
 
     stop(){
-        if(!this._scWidget) return;
-        this._scWidget.pause();
+        if(!this._soundcloudWidget) return;
+        this._soundcloudWidget.pause();
     }
 
 
     async getVolume(){
-        if(!this._scWidget) return;
+        if(!this._soundcloudWidget) return;
         return new Promise((res,rej)=>{
-            this._scWidget.getVolume(res);
+            this._soundcloudWidget.getVolume(res);
         });
     }
 
     setVolume(v){
         // v=0-100
-        if(!this._scWidget) return;
+        if(!this._soundcloudWidget) return;
         if(v<0 || v>100) v=null;
-        if(!v) v=this._scWidgetOptions.volume;
-        else this._scWidgetOptions.volume=v;
-        this._scWidget.setVolume(v);
+        if(!v) v=this._soundcloudWidgetOptions.volume;
+        else this._soundcloudWidgetOptions.volume=v;
+        this._soundcloudWidget.setVolume(v);
     }
 
 
     async getDuration(){
-        if(!this._scWidget) return;
+        if(!this._soundcloudWidget) return;
         return new Promise((res,rej)=>{
-            this._scWidget.getDuration(res);
+            this._soundcloudWidget.getDuration(res);
         });
     }
 
     async getPosition(){
-        if(!this._scWidget) return;
+        if(!this._soundcloudWidget) return;
         return new Promise((res,rej)=>{
-            this._scWidget.getPosition(res);
+            this._soundcloudWidget.getPosition(res);
         });
     }
 
     async setPosition(p, offset){
-        if(!this._scWidget) return;
+        if(!this._soundcloudWidget) return;
         const dt = await this.getDuration();
         if(offset===true){
             const cp = await this.getPosition();
             p = p+cp;
         }
         if(p<0 || p>=dt) return;
-        this._scWidget.seekTo(p);
+        this._soundcloudWidget.seekTo(p);
     }
 
 

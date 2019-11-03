@@ -31,16 +31,43 @@ const playerUI = new (class {
             await playlistMgr.playNext();
         });
 
-        this.$nvBox.find('.like').click((e)=>{
-            scTracksMgr.likeTrack(playlistMgr.currentTrack.id);
+        this.$nvBox.find('.like').click(async (e)=>{
+            let [err,tracks] = await uu.to(soundcloudAPI.likeTrack(playlistMgr.currentTrack.id));
+            console.log(err,tracks);
         });
 
-        this.$nvBox.find('.repost').click((e)=>{
-            scTracksMgr.repostTrack(playlistMgr.currentTrack.id);
+        this.$nvBox.find('.repost').click(async (e)=>{
+            let [err,tracks] = await uu.to(soundcloudAPI.repostTrack(playlistMgr.currentTrack.id));
+            console.log(err,tracks);
         });
+
+
+        this.$nvBox.find('.comments button.comment').click(async (e)=>{
+            const comment = {};
+
+            comment.body = this.$nvBox.find('.comments .comment_text').val();
+            if(!comment.body || comment.body.length<2) return;
+
+            comment.timestamp = await scWidget.getPosition();
+            const tduration = await scWidget.getDuration();
+            const tduration_std = tduration*3/4;
+            if(!comment.timestamp) comment.timestamp=tduration_std;
+            comment.timestamp=Math.max(comment.timestamp,30000);
+
+            let [err,tracks] = await uu.to(soundcloudAPI.postComment(playlistMgr.currentTrack.id,comment));
+            console.log(err,tracks);
+        });
+
+
+        scWidget.addEventCb(scWidget.EVENTS.FINISH,async()=>{
+            console.log('playerUI - scWidget FINISH');
+            await playlistMgr.playNext();
+        });
+
     }
 
     play(track_id){
+        this.$plBox.show();
         scWidget.changeTrack(track_id);
         this.currentTrack = scTracksMgr.tracksMap.get(track_id);
     }

@@ -24,7 +24,7 @@ const trackInfoUI = new (class {
             <div class="smbox kv_box meta">
                 <div class="likes"><span class="value">${t.likes_count}</span> <span class="label">likes</span> //</div>
                 <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span> //</div>
-                ${t.downloadable ? `<div class="downloads"><a href="${t.download_url ? t.download_url : '#'}"><span class="value">${t.download_count}</span> <span class="label">downloads</span> //</div>` : '' }
+                ${t.downloadable ? `<div class="downloads"><a href="${t.download_url ? t.download_url : '#'}" target="blank"><span class="value">${t.download_count}</span> <span class="label">downloads</span></a> //</div>` : '' }
                 <div class="buy"><a href="${t.purchase_url ? t.purchase_url : '#' }" target="blank">buy</a></div>
             </div>
             <div class="smbox trackdesc">${t.description}</div>

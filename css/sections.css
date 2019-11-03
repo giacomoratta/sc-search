@@ -1,4 +1,22 @@
 
+.overlay {
+    background-color: #000C;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+.overlay .text {
+color: #FFFFFF;
+    position: relative;
+    top: 35%;
+    font-size: 1.6em;
+    text-align: center;
+    letter-spacing: 0.4em;
+}
+
 .bigsection {
     border:1px solid #DDDDDD;
     border-radius: 3px;
@@ -25,7 +43,7 @@
 
 
 #sc-playlist {
-    height: 300px;
+    height: 600px;
     overflow: auto;
 }
 

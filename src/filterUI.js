@@ -43,6 +43,7 @@ const filterUI = new (class {
 
         this.$fSearchButton.click(async (e)=>{
             this.saveFilterSettings();
+            mainUI.$overlay1.show();
             const filterData = this.getFilterData();
             const tracks = await scTracksMgr.searchTracks(filterData);
             if(!tracks || tracks.length==0){
@@ -52,6 +53,7 @@ const filterUI = new (class {
             playlistMgr.reset(tracks);
             this.$fClose.show();
             this.$fOpen.hide(200);
+            mainUI.$overlay1.hide();
         });
     }
 

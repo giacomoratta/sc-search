@@ -57,8 +57,10 @@ const playlistMgr = new (class {
             return this.play();
         }
         if($nextP.length===0){
+            mainUI.$overlay1.show();
             const tracks = await scTracksMgr.searchTracks();
             const newItems = playlistMgr.addTracks(tracks);
+            mainUI.$overlay1.hide();
             if(newItems.length===0) return;
             return this.play(newItems[0]);
         }

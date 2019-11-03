@@ -56,7 +56,7 @@ const scWidget = new (class {
             //player.bind(SC.Widget.Events.SEEK  , function(){ console.log(SC.Widget.Events.SEEK  ); });
             this.setVolume();
             this.play();
-        },1000);
+        },800);
     }
 
 

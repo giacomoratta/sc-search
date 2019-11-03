@@ -6,6 +6,7 @@ const playerUI = new (class {
 
         this.$plBox = jQuery("#sc-player");
         this.$nvBox = jQuery("#sc-pnav");
+        this.$nvBoxCommentTextInput = this.$nvBox.find('.comments .comment_text');
 
         this.$nvBox.find('.vol-less').click(async (e)=>{
             const v = await scWidget.getVolume();
@@ -45,17 +46,20 @@ const playerUI = new (class {
         this.$nvBox.find('.comments button.comment').click(async (e)=>{
             const comment = {};
 
-            comment.body = this.$nvBox.find('.comments .comment_text').val();
+            comment.body = this.$nvBoxCommentTextInput.val();
             if(!comment.body || comment.body.length<2) return;
 
             comment.timestamp = await scWidget.getPosition();
             const tduration = await scWidget.getDuration();
-            const tduration_std = tduration*3/4;
+            const tduration_std = tduration*9/10;
             if(!comment.timestamp) comment.timestamp=tduration_std;
             comment.timestamp=Math.max(comment.timestamp,30000);
+            comment.timestamp=Math.min(comment.timestamp,tduration_std);
+            comment.timestamp=Math.round(comment.timestamp);
 
             let [err,tracks] = await uu.to(soundcloudAPI.postComment(playlistMgr.currentTrack.id,comment));
-            console.log(err,tracks);
+            if(err) console.log(err,tracks);
+            else this.$nvBoxCommentTextInput.val('')
         });
 
 

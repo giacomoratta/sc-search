@@ -11,11 +11,11 @@ const userInfoUI = new (class {
         this.$uiBox.html('');
         this.$uiBox.attr('data-uid','');
         if(!t){
-            console.warn('userInfoUI - No track found');
+            $warn('userInfoUI - No track found');
             return;
         }
         if(!t.user_info){
-            console.warn('userInfoUI - No track info found');
+            $warn('userInfoUI - No track info found');
             return;
         }
 
@@ -35,9 +35,9 @@ const userInfoUI = new (class {
                     <div class="tracks"><span class="value">${u.track_count}</span> <span class="label">tracks</span></div>
                 </div>
             </div>
-            <div class="smbox userdesc">${u.description}</div>
+            ${(u.description) ? `<div class="smbox userdesc">${u.description}</div>`:''}
             <div class="buttons">
-                <button class="follow">Follow/Followback</button>
+                <button class="follow">Follow</button>
             </div>
         `);
 
@@ -50,10 +50,10 @@ const userInfoUI = new (class {
 
     async followCurrentAuthor(){
         const ct = scTracksMgr.tracksMap.get(playlistMgr.currentTrack.id);
-        console.log(ct,ct.user_info,ct.user_info.id);
+        $d(ct,ct.user_info,ct.user_info.id);
         if(!ct || !ct.user_info) return;
         let [err,tracks] = await uu.to(soundcloudAPI.followUser(ct.user_info.id));
-        console.log(err,tracks);
+        $d(err,tracks);
     }
 
 });

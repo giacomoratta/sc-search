@@ -26,7 +26,7 @@ const playlistMgr = new (class {
     reset(tracks){
         this.$pBoxItems.html('');
         if(!tracks){
-            console.warn('playlistMgr - No track found');
+            $warn('playlistMgr - No track found');
             return;
         }
         this.addTracks(tracks);
@@ -42,7 +42,7 @@ const playlistMgr = new (class {
 
         this.$pBoxItems.find('.item').removeClass('playing');
         $element.addClass('playing');
-        this.$pBox.scrollTop(Math.max(0,(this.$pBox.scrollTop()+$element.offset().top-200)));
+        this.$pBox.scrollTop(Math.max(0,(this.$pBox.scrollTop()+$element.position().top-100)));
 
         playerUI.play(this.currentTrack.id);
         trackInfoUI.setInfo(this.currentTrack.id);

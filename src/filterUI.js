@@ -48,7 +48,7 @@ const filterUI = new (class {
             const tracks = await scTracksMgr.searchTracks(filterData);
             if(!tracks || tracks.length==0){
                 alert("filterUI - No tracks found");
-                console.warn("filterUI - No tracks found");
+                $warn("filterUI - No tracks found");
             }
             playlistMgr.reset(tracks);
             this.$fClose.show();
@@ -86,7 +86,7 @@ const filterUI = new (class {
         try{
             dt = JSON.parse(filtersettings)
         }catch(e){
-            console.log('restoreFilterSettings',e);
+            $d('restoreFilterSettings',e);
             return false;
         }
         this.$input.query.val(dt.q);

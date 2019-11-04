@@ -32,8 +32,10 @@ color: #FFFFFF;
 
 .kv_box {
     display: flex;
+    flex-wrap: wrap;
 }
 .kv_box>div {
+    margin: 0.1em 0;
     margin-right: 0.4em;
 }
 .kv_box .value {
@@ -89,7 +91,8 @@ color: #FFFFFF;
     color: #555555;
     max-height: 15em;
     overflow: auto;
-    max-width:45vw;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 #sc-trackinfo .tracktags {

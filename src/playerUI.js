@@ -34,12 +34,12 @@ const playerUI = new (class {
 
         this.$nvBox.find('.like').click(async (e)=>{
             let [err,tracks] = await uu.to(soundcloudAPI.likeTrack(playlistMgr.currentTrack.id));
-            console.log(err,tracks);
+            $d(err,tracks);
         });
 
         this.$nvBox.find('.repost').click(async (e)=>{
             let [err,tracks] = await uu.to(soundcloudAPI.repostTrack(playlistMgr.currentTrack.id));
-            console.log(err,tracks);
+            $d(err,tracks);
         });
 
 
@@ -58,13 +58,13 @@ const playerUI = new (class {
             comment.timestamp=Math.round(comment.timestamp);
 
             let [err,tracks] = await uu.to(soundcloudAPI.postComment(playlistMgr.currentTrack.id,comment));
-            if(err) console.log(err,tracks);
+            if(err) $d(err,tracks);
             else this.$nvBoxCommentTextInput.val('')
         });
 
 
         scWidget.addEventCb(scWidget.EVENTS.FINISH,async()=>{
-            console.log('playerUI - scWidget FINISH');
+            $d('playerUI - scWidget FINISH');
             await playlistMgr.playNext();
         });
 

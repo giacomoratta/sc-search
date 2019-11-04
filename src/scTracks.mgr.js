@@ -30,14 +30,14 @@ const scTracksMgr = new (class {
             maxAttempts--;
             let [err,tracks] = await uu.to(this.__searchTracks());
             if(err){
-                console.warn('searchTracks',e);
+                $warn('searchTracks',e);
                 return [];
             }
             if(tracks && tracks.length>0){
                 newTracks=newTracks.concat(tracks);
             }
             else{
-                console.warn('searchTracks - no more tracks');
+                $warn('searchTracks - no more tracks');
                 break;
             }
         }
@@ -55,8 +55,10 @@ const scTracksMgr = new (class {
         delete filterObj.extra;
 
         let [err,tracks] = await uu.to(soundcloudAPI.searchTracks(filterObj));
-        console.log('x',err,tracks);
-        if(err || !tracks) return [err,tracks];
+        if(err || !tracks){
+            $d('soundcloudAPI.searchTracks >> ',err,tracks);
+            return [err,tracks];
+        }
 
         let pUsers = [];
         let tracksArrayTmp = [];

@@ -49,11 +49,11 @@ const scWidget = new (class {
         window.setTimeout(()=>{
             let player = this._soundcloudWidget;
             this.bindEvents(player);
-            //player.bind(SC.Widget.Events.READY, function(){ console.log(SC.Widget.Events.READY); });
-            //player.bind(SC.Widget.Events.PLAY, function(){ console.log(SC.Widget.Events.PLAY); });
-            //player.bind(SC.Widget.Events.PAUSE , function(){ console.log(SC.Widget.Events.PAUSE ); });
-            //player.bind(SC.Widget.Events.FINISH , function(){ console.log(SC.Widget.Events.FINISH ); });
-            //player.bind(SC.Widget.Events.SEEK  , function(){ console.log(SC.Widget.Events.SEEK  ); });
+            //player.bind(SC.Widget.Events.READY, function(){ $d(SC.Widget.Events.READY); });
+            //player.bind(SC.Widget.Events.PLAY, function(){ $d(SC.Widget.Events.PLAY); });
+            //player.bind(SC.Widget.Events.PAUSE , function(){ $d(SC.Widget.Events.PAUSE ); });
+            //player.bind(SC.Widget.Events.FINISH , function(){ $d(SC.Widget.Events.FINISH ); });
+            //player.bind(SC.Widget.Events.SEEK  , function(){ $d(SC.Widget.Events.SEEK  ); });
             this.setVolume();
             this.play();
         },800);

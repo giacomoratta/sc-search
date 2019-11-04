@@ -11,9 +11,16 @@ const trackInfoUI = new (class {
         this.$tiBox.html('');
         this.$tiBox.attr('data-tid','');
         if(!t){
-            console.warn('trackInfoUI - No track found');
+            $warn('trackInfoUI - No track found');
             return;
         }
+
+        let formatted_taglist = [];
+        if(t.tag_list) formatted_taglist=t.tag_list.split(/("[^"]+"|[^\s]+)/giu).filter((e)=>{ return !(!e || e==" "); });
+        if(t.genre) formatted_taglist.unshift(`<strong>${t.genre}</strong>`);
+
+        let formatted_purchaseurl = '';
+        if(t.purchase_url) formatted_purchaseurl=t.purchase_url.match(/^https?\:\/\/([w]{3}\.{1})?([^\/:?#]+)(?:[\/:?#]|$)/i)[2];
 
         this.$tiBox.show();
         this.$tiBox.attr('data-tid',t.id);
@@ -24,11 +31,11 @@ const trackInfoUI = new (class {
             <div class="smbox kv_box meta">
                 <div class="likes"><span class="value">${t.likes_count}</span> <span class="label">likes</span> //</div>
                 <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span> //</div>
-                ${t.downloadable ? `<div class="downloads"><a href="${t.download_url ? t.download_url : '#'}" target="blank"><span class="value">${t.download_count}</span> <span class="label">downloads</span></a> //</div>` : '' }
-                <div class="buy"><a href="${t.purchase_url ? t.purchase_url : '#' }" target="blank">buy</a></div>
+                ${t.downloadable ? `<div class="downloads">// <a href="${t.download_url ? t.download_url : '#'}" target="blank"><span class="value">${t.download_count}</span> <span class="label">downloads</span></a></div>` : '' }
+                ${t.purchase_url ? `<div class="buy">// <a href="${t.purchase_url}" target="blank">${formatted_purchaseurl}</a></div>` : '' }
             </div>
-            <div class="smbox trackdesc">${t.description}</div>
-            <div class="smbox tracktags"><strong>${t.genre}</strong>, ${t.tag_list}</div>
+            ${(t.description) ? `<div class="smbox trackdesc">${t.description}</div>`:''}
+            <div class="smbox tracktags">${formatted_taglist.join(', ')}</div>
         `);
     }
 

@@ -42,7 +42,7 @@ const playlistMgr = new (class {
 
         this.$pBoxItems.find('.item').removeClass('playing');
         $element.addClass('playing');
-        this.$pBox.scrollTop(Math.max(0,(this.$pBox.scrollTop()+$element.position().top-100)));
+        this.$pBox.scrollTop(Math.max(0,($element.position().top-100)));
 
         playerUI.play(this.currentTrack.id);
         trackInfoUI.setInfo(this.currentTrack.id);

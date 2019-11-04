@@ -10,6 +10,7 @@ const playerUI = new (class {
 
         this.$nvBox.find('.vol-less').click(async (e)=>{
             const v = await scWidget.getVolume();
+            $warn(v);
             scWidget.setVolume(v-10);
         });
         this.$nvBox.find('.vol-more').click(async (e)=>{

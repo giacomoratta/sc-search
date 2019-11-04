@@ -40,13 +40,13 @@ const scWidget = new (class {
             '&color=%23000000&auto_play=true&hide_related=true&show_comments=false&' +
             'show_user=false&show_reposts=false&show_teaser=false';
 
-
         this.$elmt = jQuery(`<iframe id="scwdg1" src="${basic_url}" width="100%" height="126" scrolling="no" frameborder="no" allow="autoplay"></iframe>`);
         this.$parent.prepend(this.$elmt);
 
         this._soundcloudWidget = SC.Widget('scwdg1');
-
+        
         window.setTimeout(()=>{
+            this.setVolume();
             let player = this._soundcloudWidget;
             this.bindEvents(player);
             //player.bind(SC.Widget.Events.READY, function(){ $d(SC.Widget.Events.READY); });
@@ -54,7 +54,6 @@ const scWidget = new (class {
             //player.bind(SC.Widget.Events.PAUSE , function(){ $d(SC.Widget.Events.PAUSE ); });
             //player.bind(SC.Widget.Events.FINISH , function(){ $d(SC.Widget.Events.FINISH ); });
             //player.bind(SC.Widget.Events.SEEK  , function(){ $d(SC.Widget.Events.SEEK  ); });
-            this.setVolume();
             this.play();
         },800);
     }
@@ -81,9 +80,10 @@ const scWidget = new (class {
     setVolume(v){
         // v=0-100
         if(!this._soundcloudWidget) return;
-        if(v<0 || v>100) v=null;
-        if(!v) v=this._soundcloudWidgetOptions.volume;
-        else this._soundcloudWidgetOptions.volume=v;
+        if(v!==0 && !v) v=this._soundcloudWidgetOptions.volume;
+        v=Math.max(1,v);
+        v=Math.min(100,v);
+        this._soundcloudWidgetOptions.volume=v;
         this._soundcloudWidget.setVolume(v);
     }
 

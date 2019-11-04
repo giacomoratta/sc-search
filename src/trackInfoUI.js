@@ -30,7 +30,7 @@ const trackInfoUI = new (class {
             </div>
             <div class="smbox kv_box meta">
                 <div class="likes"><span class="value">${t.likes_count}</span> <span class="label">likes</span> //</div>
-                <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span> //</div>
+                <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span></div>
                 ${t.downloadable ? `<div class="downloads">// <a href="${t.download_url ? t.download_url : '#'}" target="blank"><span class="value">${t.download_count}</span> <span class="label">downloads</span></a></div>` : '' }
                 ${t.purchase_url ? `<div class="buy">// <a href="${t.purchase_url}" target="blank">${formatted_purchaseurl}</a></div>` : '' }
             </div>

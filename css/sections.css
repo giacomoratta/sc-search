@@ -24,6 +24,11 @@ color: #FFFFFF;
     margin-bottom: 16px;
 }
 
+.mdbox {
+    padding: 8px 0;
+    margin-bottom: 8px;
+}
+
 .smbox {
     margin-bottom: 8px;
 }
@@ -71,9 +76,7 @@ color: #FFFFFF;
 
 
 #sc-artwkctrls {
-    display: flex;
-    justify-content: stretch;
-    align-content: stretch;
+    position: relative;
 }
 
 #sc-artwkctrls .artwork {
@@ -86,6 +89,13 @@ color: #FFFFFF;
     height: 180px;
 }
 
+#sc-artwkctrls .side {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
 #sc-artwkctrls .cntrls {
     width: 70px;
     display: flex;
@@ -95,21 +105,32 @@ color: #FFFFFF;
     text-align: right;
 }
 
-#sc-artwkctrls {}
 
 
-
-#sc-pnav .buttons button {
-    margin-right: 0.5em;
+#sc-pinfo {
+    text-align: center;
 }
-#sc-pnav .comments {
+
+#sc-pinfo div:nth-child(1) {
+    margin-bottom: 0.5em;
+}
+
+
+#sc-pnav {
+    text-align: center;
+}
+
+#sc-pnav button {
+    margin:0 0.3em;
+}
+
+
+
+#sc-comments {
     display: flex;
 }
-#sc-pnav .comments input {
+#sc-comments input {
     flex-grow: 1;
-}
-#sc-pnav .buttons button {
-    margin-right: 0.5em;
 }
 
 

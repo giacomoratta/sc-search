@@ -85,15 +85,15 @@
                 </section>
             </section>
 
-            <section id="sc-player" class="bigsection" style="padding:0;xdisplay:none;">
-                <section id="sc-artwkctrls" style="padding:16px;">
+            <section id="sc-player" class="bigsection" style="padding:16px;xdisplay:none;">
+                <section id="sc-artwkctrls" class="smbox">
                     <section class="artwork">
                         <img src="https://dummyimage.com/600x400/000/fff" title="" alt="" />
                     </section>
-                    <section class="cntrls">
+                    <section class="side cntrls">
                         <div class="top">
-                            <button class="vol-less">vol-</button>
-                            <button class="vol-more">vol+</button>
+                            <button class="vol-more">v+</button>
+                            <button class="vol-less">v-</button>
                         </div>
                         <div class="bottom">
                             <button class="like">&hearts;</button>
@@ -101,18 +101,23 @@
                         </div>
                     </section>
                 </section>
-                <section id="sc-pnav" style="padding:16px;">
-                    <div class="smbox buttons">
-                        <button class="skip-rw">&#171;</button>
-                        <button class="prev">&larr;</button>
-                        <button class="play">&triangleright;</button>
-                        <button class="next">&rarr;</button>
-                        <button class="skip-fw">&#187;</button>
-                    </div>
-                    <div class="smbox comments">
-                        <input class="comment_text" type="text" value="">
-                        <button class="comment">comment</button>
-                    </div>
+                <section id="sc-pinfo" class="mdbox">
+                    <div class="artist">artist name</div>
+                    <div class="title">title track name</div>
+                </section>
+                <section id="sc-pnav" class="mdbox">
+                    <button class="skip-rw">&#171;</button>
+                    <button class="prev">&larr;</button>
+                    <button class="play">&triangleright;</button>
+                    <button class="next">&rarr;</button>
+                    <button class="skip-fw">&#187;</button>
+                </section>
+                <section id="sc-pwaveform" class="mdbox">
+                    <img src="https://dummyimage.com/600x140/000/fff" title="" alt="" style="width:100%;height:72px;" />
+                </section>
+                <section id="sc-comments" class="smbox">
+                    <input class="comment_text" type="text" value="">
+                    <button class="comment">comment</button>
                 </section>
             </section>
 

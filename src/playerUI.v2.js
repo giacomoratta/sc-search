@@ -7,6 +7,8 @@ const playerUI = new (class {
         this.$plBox = jQuery("#sc-player");
         this.$nvBox = jQuery("#sc-pnav");
         this.$acBox = jQuery("#sc-artwkctrls");
+        this.$cmBox = jQuery("#sc-comments");
+        this.$wfBox = jQuery("#sc-pwaveform");
         this.$nvBoxCommentTextInput = this.$nvBox.find('.comments .comment_text');
 
         this.$acBox.find('.vol-less').click(async (e)=>{
@@ -45,7 +47,7 @@ const playerUI = new (class {
         });
 
 
-        this.$nvBox.find('.comments button.comment').click(async (e)=>{
+        this.$cmBox.find('button.comment').click(async (e)=>{
             const comment = {};
 
             comment.body = this.$nvBoxCommentTextInput.val();
@@ -72,9 +74,25 @@ const playerUI = new (class {
 
     }
 
+
+    updateInfo(){
+        const t = this.currentTrack;
+        const $artwork_img = this.$acBox.find('.artwork img');
+        $artwork_img.attr('src',t.artwork_url);
+        $artwork_img.attr('title',t.user.username+' - '+t.title);
+        $artwork_img.attr('alt',t.user.username+' - '+t.title);
+
+        const $waveform_img = this.$wfBox.find('img');
+        $waveform_img.attr('src',t.waveform_url);
+    }
+
+
+
     play(track_id){
         this.$plBox.show();
         this.currentTrack = scTracksMgr.tracksMap.get(track_id);
+
+        this.updateInfo();
         scWidget.changeTrack(track_id, this.currentTrack);
     }
 

@@ -47,10 +47,10 @@
                         Query
                         <input id="fr_query" type="text" value="" />
                     </p>
-                    <p>
+                    <!-- <p>
                         Genres
                         <input id="fr_genres" type="text" value="" />
-                    </p>
+                    </p> -->
                     <p>
                         Tags
                         <input id="fr_tags" type="text" value="" />
@@ -88,18 +88,16 @@
             <section id="sc-player" class="bigsection" style="padding:0;display:none;">
                 <section id="sc-pnav" style="padding:16px;">
                     <div class="smbox buttons">
-                        <button class="vol-less">vol-</button>
-                        <button class="vol-more">vol+</button>
-                        <button class="skip-rw">-20sec</button>
-                        <button class="skip-fw">+20sec</button>
-                    </div>
-                    <div class="smbox buttons">
-                        <button class="prev">prev</button>
-                        <button class="like">like</button>
-                        <button class="repost">repost</button>
-                        <button class="next">next</button>
+                    <button class="skip-rw">&#171;</button>
+                    <button class="skip-fw">&#187;</button>
+                        <button class="vol-less">v-</button>
+                        <button class="vol-more">v+</button>
+                        <button class="prev">&larr;</button>
+                        <button class="next">&rarr;</button>
                     </div>
                     <div class="smbox comments">
+                        <button class="like">&hearts;</button>
+                        <button class="repost">&reg;</button>
                         <input class="comment_text" type="text" value="">
                         <button class="comment">comment</button>
                     </div>
@@ -171,75 +169,11 @@
 
     SC.initialize({
         client_id: 'FXiLZSR7d77KWcTmDJ6Sg2MhGjFI1bYO',
-  redirect_uri: 'http://www.mpl.cloud/apps/tksearch'
+        redirect_uri: 'http://www.mpl.cloud/apps/tksearch'
     });
-
-//     SC.connect().then(function() {
-//   return SC.get('/me');
-// }).then(function(me) {
-//   alert('Hello, ' + me.username);
-// });
 
     scWidget.setParent("#sc-player");
 
-</script>
-
-<script>
-
-    let currentTrackID = null;
-    let tracksArray = [];
-    let scPlayer = null;
-
-    jQuery(function(){
-
-        // SC.get('/tracks', {
-        //     limit: 5, linked_partitioning: 1, tags:"techno"
-        // }).then(function(tracks) {
-        //     console.log(tracks);
-        //     f1_listracks(tracks.collection);
-        // });
-
-        //scPlayer = SC.Widget(document.querySelector('#sc_player'));
-
-
-        $('#play_next').click(function(){
-            f2_playtrack();
-        });
-
-    });
-
-    function f1_listracks(tracks){
-        tracks.forEach((t)=>{
-            SC.get('/users/'+t.user.id).then(function(user_info) {
-                t.user_info = user_info;
-                tracksArray.push(t);
-            });
-        });
-    }
-
-
-    function f2_playtrack() {
-        if(currentTrackID===null) currentTrackID=0;
-        else currentTrackID++;
-        if(tracksArray.length<=currentTrackID){
-            console.warn('no more tracks');
-            return;
-        }
-
-        scWidget.changeTrack(tracksArray[currentTrackID].id);
-
-        return;
-        //
-        // let basic_url = 'https://w.soundcloud.com/player/?' +
-        //     'url=https%3A//api.soundcloud.com/tracks/'+
-        //     tracksArray[currentTrackID].id+
-        //     '&color=%23000000&auto_play=true&hide_related=true&show_comments=true&' +
-        //     'show_user=true&show_reposts=true&show_teaser=true';
-        //
-        // $('#sc_player').attr('src',basic_url);
-        //
-        // $('#sc_player').show(200);
-    }
 </script>
 
 

@@ -20,6 +20,7 @@ const trackInfoUI = new (class {
         if(t.genre) formatted_taglist.unshift(`<strong>${t.genre}</strong>`);
 
         let formatted_purchaseurl = '';
+        let created_at = new Date(t.created_at);
         if(t.purchase_url) formatted_purchaseurl=t.purchase_url.match(/^https?\:\/\/([w]{3}\.{1})?([^\/:?#]+)(?:[\/:?#]|$)/i)[2];
 
         this.$tiBox.show();
@@ -35,6 +36,8 @@ const trackInfoUI = new (class {
                 ${t.purchase_url ? `<div class="buy">// <a href="${t.purchase_url}" target="blank">${formatted_purchaseurl}</a></div>` : '' }
             </div>
             ${(t.description) ? `<div class="smbox trackdesc">${t.description}</div>`:''}
+            <div class="smbox small duration">Duration: <strong>${uu.string.msToDuration(t.duration)}</strong></div>
+            <div class="smbox small created_at">Created at: <strong>${created_at.getFullYear()}/${created_at.getMonth()+1}/${created_at.getDate()}</strong></div>
             <div class="smbox tracktags">${formatted_taglist.join(', ')}</div>
         `);
     }

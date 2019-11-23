@@ -11,6 +11,11 @@ const playlistMgr = new (class {
         this.$pBoxItems = jQuery("#sc-playlist .items");
         this.$pLoadmoreBtn = jQuery("#sc-playlist .pl_loadmore");
 
+        this._markedEv = {
+            playNext:false,
+            playPrev:false
+        };
+
         // this.$pLoadmoreBtn.click((e)=>{
         //     scTracksMgr.searchTracks().then((tracks)=>{
         //         playlistMgr.addTracks(tracks);
@@ -49,32 +54,60 @@ const playlistMgr = new (class {
         userInfoUI.setInfo(this.currentTrack.id);
     }
 
+    markEvent(name,marked){
+        if((Date.now()-this._markedEv[name])<1500){
+            //$d('markEvent - already marked');
+            return false;
+        }
+        marked = (marked===true?Date.now():0);
+        //$d('markEvent - set ',marked);
+        this._markedEv[name]=marked;
+        return true;
+    }
+
 
     async playNext(){
+        if(!this.markEvent('playNext',true)) return;
+
         const $currP = this.$pBoxItems.find('.item.playing').eq(0);
         const $nextP = $currP.next();
         if($currP.length===0){
-            return this.play();
+            this.play();
+            this.markEvent('playNext',false);
+            return;
         }
         if($nextP.length===0){
             mainUI.$overlay1.show();
             const tracks = await scTracksMgr.searchTracks();
             const newItems = playlistMgr.addTracks(tracks);
             mainUI.$overlay1.hide();
-            if(newItems.length===0) return;
-            return this.play(newItems[0]);
+            if(newItems.length===0){
+                this.markEvent('playNext',false);
+                return;
+            }
+            this.play(newItems[0]);
+            this.markEvent('playNext',false);
+            return;
         }
-        return this.play($nextP);
+        this.play($nextP);
+        this.markEvent('playNext',false);
+        return;
     }
 
 
     playPrev(){
+        if(!this.markEvent('playPrev',true)) return;
+
         const $currP = this.$pBoxItems.find('.item.playing').eq(0);
         const $prevP = $currP.prev();
         if($currP.length===0 || $prevP.length===0){
-            return this.play();
+            this.play();
+            this.markEvent('playPrev',false);
+            return;
         }
-        return this.play($prevP);
+        this.play($prevP);
+        this.markEvent('playPrev',false);
+        return;
     }
 
 

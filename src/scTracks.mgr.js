@@ -66,6 +66,7 @@ const scTracksMgr = new (class {
         this.nextHref = tracks.next_href;
         await uu.asyncForEach(tracks.collection, async (t)=>{
             if(this.filterData.extra.download===true && t.downloadable!==true) return;
+            if(!t.streamable) return;
 
             let [err,user_info] = await uu.to(soundcloudAPI.getUser(t.user.id));
             if(err || !user_info) return;

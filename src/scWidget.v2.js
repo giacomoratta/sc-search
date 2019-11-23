@@ -12,6 +12,19 @@ const scWidget = new (class {
 
         this.EVENTS = SC.Widget.Events;
         this.EventCallbacks = {};
+
+        navigator.mediaSession.setActionHandler('previoustrack', function() {
+            console.log('> User clicked "Previous Track" icon.');
+        });
+
+        navigator.mediaSession.setActionHandler('nexttrack', function() {
+            console.log('> User clicked "Next Track" icon.');
+        });
+    }
+
+    _createElement(){
+        this.$elmt = jQuery(`<audio id="scwdg1" controls src=""> Your browser does not support the <code>audio</code> element. </audio>`);
+        this.$parent.prepend(this.$elmt);
     }
 
     setParent(q){
@@ -36,21 +49,33 @@ const scWidget = new (class {
     }
 
 
-    changeTrack(id){
+    changeTrack(id, track){
         this.stop();
-        if(this.$elmt) this.$elmt.remove();
+        if(!this.$elmt) this._createElement();
 
-        let basic_url = 'https://w.soundcloud.com/player/?' +
-            'url=https%3A//api.soundcloud.com/tracks/'+id+
-            '&color=%23000000&auto_play=true&hide_related=true&show_comments=false&' +
-            'show_user=false&show_reposts=false&show_teaser=false';
+        let basic_url = track.stream_url+'?client_id='+this._SC_cliendId;
+        //this.$elmt.attr('src',basic_url);
 
-        this.$elmt = jQuery(`<iframe id="scwdg1" src="${basic_url}" width="100%" height="126" scrolling="no" frameborder="no" allow="autoplay"></iframe>`);
-        this.$parent.prepend(this.$elmt);
+        function updateMediaSessionData(){
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: track.title,
+                artist: track.user.username,
+                album: '',
+                artwork: [ { src:track.artwork_url } ]
+            });
 
-        this._soundcloudWidget = SC.Widget('scwdg1');
+
+        }
+
+        const audio = this.$elmt[0];
+        audio.src = basic_url;
+        audio.play()
+            .then(_ => updateMediaSessionData())
+            .catch(console.error);
+
+        //this.updateMediaSessionData(id, track);
         
-        window.setTimeout(()=>{
+        /*window.setTimeout(()=>{
             this.setVolume();
             let player = this._soundcloudWidget;
             this.bindEvents(player);
@@ -60,18 +85,21 @@ const scWidget = new (class {
             //player.bind(SC.Widget.Events.FINISH , function(){ $d(SC.Widget.Events.FINISH ); });
             //player.bind(SC.Widget.Events.SEEK  , function(){ $d(SC.Widget.Events.SEEK  ); });
             this.play();
-        },800);
+        },800);*/
     }
+
+
+
 
 
     play(){
-        if(!this._soundcloudWidget) return;
-        this._soundcloudWidget.play();
+        //if(!this._soundcloudWidget) return;
+        //this._soundcloudWidget.play();
     }
 
     stop(){
-        if(!this._soundcloudWidget) return;
-        this._soundcloudWidget.pause();
+        //if(!this._soundcloudWidget) return;
+        //this._soundcloudWidget.pause();
     }
 
 
@@ -94,16 +122,18 @@ const scWidget = new (class {
 
 
     async getDuration(){
-        if(!this._soundcloudWidget) return;
+        //if(!this._soundcloudWidget) return;
         return new Promise((res,rej)=>{
-            this._soundcloudWidget.getDuration(res);
+            //this._soundcloudWidget.getDuration(res);
+            return 0;
         });
     }
 
     async getPosition(){
-        if(!this._soundcloudWidget) return;
+        //if(!this._soundcloudWidget) return;
         return new Promise((res,rej)=>{
-            this._soundcloudWidget.getPosition(res);
+            //this._soundcloudWidget.getPosition(res);
+            return 0;
         });
     }
 

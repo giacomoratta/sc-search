@@ -68,6 +68,37 @@ color: #FFFFFF;
 }
 
 
+
+
+#sc-artwkctrls {
+    display: flex;
+    justify-content: stretch;
+    align-content: stretch;
+}
+
+#sc-artwkctrls .artwork {
+    text-align: center;
+    flex-grow: 1;
+}
+
+#sc-artwkctrls .artwork img {
+    width: 180px;
+    height: 180px;
+}
+
+#sc-artwkctrls .cntrls {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: stretch;
+    text-align: right;
+}
+
+#sc-artwkctrls {}
+
+
+
 #sc-pnav .buttons button {
     margin-right: 0.5em;
 }

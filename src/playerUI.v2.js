@@ -6,14 +6,15 @@ const playerUI = new (class {
 
         this.$plBox = jQuery("#sc-player");
         this.$nvBox = jQuery("#sc-pnav");
+        this.$acBox = jQuery("#sc-artwkctrls");
         this.$nvBoxCommentTextInput = this.$nvBox.find('.comments .comment_text');
 
-        this.$nvBox.find('.vol-less').click(async (e)=>{
+        this.$acBox.find('.vol-less').click(async (e)=>{
             const v = await scWidget.getVolume();
             $warn(v);
             scWidget.setVolume(v-10);
         });
-        this.$nvBox.find('.vol-more').click(async (e)=>{
+        this.$acBox.find('.vol-more').click(async (e)=>{
             const v = await scWidget.getVolume();
             scWidget.setVolume(v+10);
         });
@@ -33,12 +34,12 @@ const playerUI = new (class {
             await playlistMgr.playNext();
         });
 
-        this.$nvBox.find('.like').click(async (e)=>{
+        this.$acBox.find('.like').click(async (e)=>{
             let [err,tracks] = await uu.to(soundcloudAPI.likeTrack(playlistMgr.currentTrack.id));
             $d(err,tracks);
         });
 
-        this.$nvBox.find('.repost').click(async (e)=>{
+        this.$acBox.find('.repost').click(async (e)=>{
             let [err,tracks] = await uu.to(soundcloudAPI.repostTrack(playlistMgr.currentTrack.id));
             $d(err,tracks);
         });

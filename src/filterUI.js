@@ -13,7 +13,7 @@ const filterUI = new (class {
         this.$input = {
             query: jQuery("#fr_query"),
             tags: jQuery("#fr_tags"),
-            genres: jQuery("#fr_genres"),
+            //genres: jQuery("#fr_genres"),
             download: jQuery("#fr_download"),
             datefrom: jQuery("#fr_datefrom"),
             dateto: jQuery("#fr_dateto"),
@@ -68,7 +68,7 @@ const filterUI = new (class {
 
         this.$input.query.val("");
         this.$input.tags.val('techno');
-        this.$input.genres.val('techno');
+        //this.$input.genres.val('techno');
 
         this.$input.fw_min.val(10);
         this.$input.fw_max.val(2600);
@@ -90,7 +90,7 @@ const filterUI = new (class {
             return false;
         }
         this.$input.query.val(dt.q);
-        this.$input.genres.val(dt.genres);
+        //this.$input.genres.val(dt.genres);
         this.$input.tags.val(dt.tags);
         this.$input.datefrom.val(dt.datefrom);
         this.$input.dateto.val(dt.dateto);
@@ -106,7 +106,7 @@ const filterUI = new (class {
     saveFilterSettings(){
         const dt = {};
         dt.q=this.$input.query.val();
-        dt.genres=this.$input.genres.val();
+        //dt.genres=this.$input.genres.val();
         dt.tags=this.$input.tags.val();
         dt.datefrom=this.$input.datefrom.val();
         dt.dateto=this.$input.dateto.val();
@@ -123,7 +123,7 @@ const filterUI = new (class {
     getFilterData(){
         const dt = {};
         dt.q=this.$input.query.val();
-        dt.genres=this.$input.genres.val();
+        //dt.genres=this.$input.genres.val();
         dt.tags=this.$input.tags.val();
         dt.datefrom=this.$input.datefrom.val();
         dt.dateto=this.$input.dateto.val();
@@ -136,7 +136,7 @@ const filterUI = new (class {
         dt.extra.download=this.$input.download.prop('checked');
 
         if(dt.q.length==0) delete dt.q;
-        if(dt.genres.length==0) delete dt.genres;
+        //if(dt.genres.length==0) delete dt.genres;
         if(dt.tags.length==0) delete dt.tags;
 
         if(dt.datefrom.length==0) delete dt.datefrom;

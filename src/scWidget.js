@@ -49,9 +49,9 @@ const scWidget = new (class {
         this.$parent.prepend(this.$elmt);
 
         this._soundcloudWidget = SC.Widget('scwdg1');
-        
+        this.setVolume();
+
         window.setTimeout(()=>{
-            this.setVolume();
             let player = this._soundcloudWidget;
             this.bindEvents(player);
             //player.bind(SC.Widget.Events.READY, function(){ $d(SC.Widget.Events.READY); });
@@ -60,6 +60,7 @@ const scWidget = new (class {
             //player.bind(SC.Widget.Events.FINISH , function(){ $d(SC.Widget.Events.FINISH ); });
             //player.bind(SC.Widget.Events.SEEK  , function(){ $d(SC.Widget.Events.SEEK  ); });
             this.play();
+            this.setVolume();
         },800);
     }
 
@@ -89,6 +90,7 @@ const scWidget = new (class {
         v=Math.max(1,v);
         v=Math.min(100,v);
         this._soundcloudWidgetOptions.volume=v;
+        //$d(this._soundcloudWidgetOptions.volume);
         this._soundcloudWidget.setVolume(v);
     }
 

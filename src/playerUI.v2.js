@@ -16,14 +16,15 @@ const playerUI = new (class {
         this.$wfBoxProg = this.$wfBox.find('.prog');
 
 
-        this.$acBox.find('.vol-less').click(async (e)=>{
-            const v = await scWidget.getVolume();
+        this.$acBox.find('.vol-less').click((e)=>{
+            const v = scWidget.getVolume();
             $warn(v);
             scWidget.setVolume(v-10);
         });
 
-        this.$acBox.find('.vol-more').click(async (e)=>{
-            const v = await scWidget.getVolume();
+        this.$acBox.find('.vol-more').click((e)=>{
+            const v = scWidget.getVolume();
+            $warn(v);
             scWidget.setVolume(v+10);
         });
 
@@ -91,7 +92,7 @@ const playerUI = new (class {
         });
 
 
-        scWidget.addEventCb(scWidget.EVENTS.ENDED,async()=>{
+        scWidget.addEventCb(scWidget.EVENTS.ENDED,async ()=>{
             $d('playerUI - scWidget ENDED');
             await playlistMgr.playNext();
         });
@@ -99,6 +100,16 @@ const playerUI = new (class {
         scWidget.addEventCb(scWidget.EVENTS.PROGRESS,()=>{
             $d('playerUI - scWidget PROGRESS');
             this.setProgressionStatus();
+        });
+
+        navigator.mediaSession.setActionHandler('previoustrack', async ()=>{
+            $d('playerUI - navigator.previoustrack');
+            await playlistMgr.playPrev();
+        });
+
+        navigator.mediaSession.setActionHandler('nexttrack', async ()=>{
+            $d('playerUI - navigator.nexttrack');
+            await playlistMgr.playNext();
         });
 
     }
@@ -140,7 +151,6 @@ const playerUI = new (class {
 
     setProgressionStatus(){
         const p = scWidget.getPositionPercentage();
-        console.log(p);
         this.$wfBoxProg.css({ 'width':p+'%' });
     }
 

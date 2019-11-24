@@ -7,9 +7,14 @@ const playerUI = new (class {
         this.$plBox = jQuery("#sc-player");
         this.$nvBox = jQuery("#sc-pnav");
         this.$acBox = jQuery("#sc-artwkctrls");
+        this.$nfBox = jQuery("#sc-pinfo");
         this.$cmBox = jQuery("#sc-comments");
+        this.$cmBoxTextInput = this.$cmBox.find('.comment_text');
+
         this.$wfBox = jQuery("#sc-pwaveform");
-        this.$nvBoxCommentTextInput = this.$nvBox.find('.comments .comment_text');
+        this.$wfBoxFull = this.$wfBox.find('.full');
+        this.$wfBoxProg = this.$wfBox.find('.prog');
+
 
         this.$acBox.find('.vol-less').click(async (e)=>{
             const v = await scWidget.getVolume();
@@ -50,7 +55,7 @@ const playerUI = new (class {
         this.$cmBox.find('button.comment').click(async (e)=>{
             const comment = {};
 
-            comment.body = this.$nvBoxCommentTextInput.val();
+            comment.body = this.$cmBoxTextInput.val();
             if(!comment.body || comment.body.length<2) return;
 
             comment.timestamp = await scWidget.getPosition();
@@ -63,7 +68,7 @@ const playerUI = new (class {
 
             let [err,tracks] = await uu.to(soundcloudAPI.postComment(playlistMgr.currentTrack.id,comment));
             if(err) $d(err,tracks);
-            else this.$nvBoxCommentTextInput.val('')
+            else this.$cmBoxTextInput.val('')
         });
 
 
@@ -77,13 +82,17 @@ const playerUI = new (class {
 
     updateInfo(){
         const t = this.currentTrack;
+
         const $artwork_img = this.$acBox.find('.artwork img');
         $artwork_img.attr('src',t.artwork_url);
         $artwork_img.attr('title',t.user.username+' - '+t.title);
         $artwork_img.attr('alt',t.user.username+' - '+t.title);
 
-        const $waveform_img = this.$wfBox.find('img');
-        $waveform_img.attr('src',t.waveform_url);
+        this.$nfBox.find('.artist').html(t.user.username);
+        this.$nfBox.find('.title').html(t.title);
+
+        this.$wfBoxFull.css({ 'background-image':"url('"+t.waveform_url+"')" });
+        //this.$wfBoxProg.css({ 'background-image':"url('"+t.waveform_url+"')" });
     }
 
 

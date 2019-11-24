@@ -25,8 +25,7 @@ color: #FFFFFF;
 }
 
 .mdbox {
-    padding: 8px 0;
-    margin-bottom: 8px;
+    margin: 8px 0 16px 0;
 }
 
 .smbox {
@@ -97,12 +96,22 @@ color: #FFFFFF;
 }
 
 #sc-artwkctrls .cntrls {
-    width: 70px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-content: stretch;
     text-align: right;
+}
+
+#sc-artwkctrls .cntrls button {
+    display: block;
+    padding: 0;
+    margin: 0.3em 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    border: 1px solid #CCCCCC;
+    background-color: #EEEEEE;
 }
 
 
@@ -117,11 +126,37 @@ color: #FFFFFF;
 
 
 #sc-pnav {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+
+
 #sc-pnav button {
+    padding: 0;
     margin:0 0.3em;
+    border-radius: 56px;
+    border: 1px solid #CCCCCC;
+    height: 54px;
+    width: 54px;
+    background-color: #EEEEEE;
+    text-align: center;
+    line-height: 0.2em;
+}
+
+#sc-pnav button.sm {
+    border-radius: 36px;
+    border: 1px solid #DDDDDD;
+    height: 40px;
+    width: 40px;
+    background-color: #F9F9F9;
+}
+
+#sc-pnav button.play {
+    font-size: 1.2em;
+    height: 68px;
+    width: 68px;
 }
 
 
@@ -131,6 +166,27 @@ color: #FFFFFF;
 }
 #sc-comments input {
     flex-grow: 1;
+}
+
+
+#sc-pwaveform {
+    position: relative;
+    background-color: #949fbd;
+}
+#sc-pwaveform .full {
+    height: 62px;
+    position: relative;
+    z-index: 100;
+    background-size: 100% 100%;
+}
+#sc-pwaveform .prog {
+    height: 62px;
+    background-color: rgb(85, 85, 85);
+    top: 0px;
+    left: 0px;
+    width: 65%;
+    position: absolute;
+    z-index: 10;
 }
 
 

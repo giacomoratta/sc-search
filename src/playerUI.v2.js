@@ -21,6 +21,7 @@ const playerUI = new (class {
             $warn(v);
             scWidget.setVolume(v-10);
         });
+
         this.$acBox.find('.vol-more').click(async (e)=>{
             const v = await scWidget.getVolume();
             scWidget.setVolume(v+10);
@@ -35,12 +36,19 @@ const playerUI = new (class {
             }
         });
 
-        this.$nvBox.find('.skip-rw').click((e)=>{
-            scWidget.setPosition(-20,true);
+        this.$wfBoxFull.click((e)=>{
+            const dt = scWidget.getDuration();
+            scWidget.setPosition(dt * e.offsetX / this.$wfBoxFull.width(),false);
             this.setProgressionStatus();
         });
+
         this.$nvBox.find('.skip-fw').click((e)=>{
             scWidget.setPosition(20,true);
+            this.setProgressionStatus();
+        });
+
+        this.$nvBox.find('.skip-rw').click((e)=>{
+            scWidget.setPosition(-20,true);
             this.setProgressionStatus();
         });
 

@@ -25,13 +25,24 @@ const playerUI = new (class {
             const v = await scWidget.getVolume();
             scWidget.setVolume(v+10);
         });
-        this.$nvBox.find('.skip-rw').click(async (e)=>{
-            scWidget.setPosition(-20*1000,true);
-        });
-        this.$nvBox.find('.skip-fw').click(async (e)=>{
-            scWidget.setPosition(20*1000,true);
+
+
+        this.$nvBox.find('.play').click(async (e)=>{
+            if(scWidget.playToggle()===true){
+                this.$nvBox.find('.play').html('&#9723;');
+            }else{
+                this.$nvBox.find('.play').html('&#9655;');
+            }
         });
 
+        this.$nvBox.find('.skip-rw').click((e)=>{
+            scWidget.setPosition(-20,true);
+            this.setProgressionStatus();
+        });
+        this.$nvBox.find('.skip-fw').click((e)=>{
+            scWidget.setPosition(20,true);
+            this.setProgressionStatus();
+        });
 
         this.$nvBox.find('.prev').click((e)=>{
             playlistMgr.playPrev();
@@ -72,9 +83,14 @@ const playerUI = new (class {
         });
 
 
-        scWidget.addEventCb(scWidget.EVENTS.FINISH,async()=>{
-            $d('playerUI - scWidget FINISH');
+        scWidget.addEventCb(scWidget.EVENTS.ENDED,async()=>{
+            $d('playerUI - scWidget ENDED');
             await playlistMgr.playNext();
+        });
+
+        scWidget.addEventCb(scWidget.EVENTS.PROGRESS,()=>{
+            $d('playerUI - scWidget PROGRESS');
+            this.setProgressionStatus();
         });
 
     }
@@ -103,6 +119,21 @@ const playerUI = new (class {
 
         this.updateInfo();
         scWidget.changeTrack(track_id, this.currentTrack);
+
+        this.setPlayingStatus();
+    }
+
+
+
+    setPlayingStatus(){
+        this.$nvBox.find('.play').html('&#9723;');
+    }
+
+
+    setProgressionStatus(){
+        const p = scWidget.getPositionPercentage();
+        console.log(p);
+        this.$wfBoxProg.css({ 'width':p+'%' });
     }
 
 });

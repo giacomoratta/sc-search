@@ -4,13 +4,17 @@ const scWidget = new (class {
     constructor(){
         this._SC_cliendId = '';
         this.$elmt = null;
+        this.audioElmt = null;
         this.$parent = null;
         this._soundcloudWidget = null;
         this._soundcloudWidgetOptions = {
             volume:20
         };
 
-        this.EVENTS = SC.Widget.Events;
+        this.EVENTS = {
+            PROGRESS:'progress',
+            ENDED:'ended',
+        };
         this.EventCallbacks = {};
 
         navigator.mediaSession.setActionHandler('previoustrack', function() {
@@ -25,6 +29,8 @@ const scWidget = new (class {
     _createElement(){
         this.$elmt = jQuery(`<audio id="scwdg1" controls src=""> Your browser does not support the <code>audio</code> element. </audio>`);
         this.$parent.prepend(this.$elmt);
+        this.audioHTML = this.$elmt[0];
+        this.bindEvents(this.audioHTML);
     }
 
     setParent(q){
@@ -43,19 +49,20 @@ const scWidget = new (class {
     bindEvents(player){
         Object.keys(this.EventCallbacks).forEach((ev)=>{
             this.EventCallbacks[ev].forEach((cb)=>{
-                player.bind(ev, cb);
+                player.addEventListener(ev, cb);
             });
         });
     }
 
 
     changeTrack(id, track){
+        if(!this.audioHTML) this._createElement();
         this.stop();
-        if(!this.$elmt) this._createElement();
 
         let basic_url = track.stream_url+'?client_id='+this._SC_cliendId;
-        //this.$elmt.attr('src',basic_url);
+        this.audioHTML.src = basic_url;
 
+        /* testing ... todo:remove */
         function updateMediaSessionData(){
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: track.title,
@@ -63,13 +70,9 @@ const scWidget = new (class {
                 album: '',
                 artwork: [ { src:track.artwork_url } ]
             });
-
-
         }
 
-        const audio = this.$elmt[0];
-        audio.src = basic_url;
-        audio.play()
+        this.play()
             .then(_ => updateMediaSessionData())
             .catch(console.error);
 
@@ -93,14 +96,26 @@ const scWidget = new (class {
 
 
     play(){
-        //if(!this._soundcloudWidget) return;
-        //this._soundcloudWidget.play();
+        return this.audioHTML.play();
+    }
+
+    playToggle(){
+        if(this.audioHTML.paused===false){
+            this.audioHTML.pause();
+            return false;
+        }
+        this.audioHTML.play();
+        return true;
+    }
+
+    pause(){
+        return this.audioHTML.pause();
     }
 
     stop(){
-        //if(!this._soundcloudWidget) return;
-        //this._soundcloudWidget.pause();
+        return this.audioHTML.pause();
     }
+
 
 
     async getVolume(){
@@ -121,31 +136,35 @@ const scWidget = new (class {
     }
 
 
-    async getDuration(){
-        //if(!this._soundcloudWidget) return;
-        return new Promise((res,rej)=>{
-            //this._soundcloudWidget.getDuration(res);
-            return 0;
-        });
+    getDuration(){
+        if(!this.audioHTML) return;
+        return this.audioHTML.duration;
     }
 
-    async getPosition(){
-        //if(!this._soundcloudWidget) return;
-        return new Promise((res,rej)=>{
-            //this._soundcloudWidget.getPosition(res);
-            return 0;
-        });
+    getPosition(){
+        if(!this.audioHTML) return;
+        return this.audioHTML.currentTime;
     }
 
-    async setPosition(p, offset){
-        if(!this._soundcloudWidget) return;
-        const dt = await this.getDuration();
+    setPosition(p, offset){
+        if(!this.audioHTML) return;
+        const dt = this.getDuration();
         if(offset===true){
-            const cp = await this.getPosition();
+            const cp = this.getPosition();
             p = p+cp;
         }
-        if(p<0 || p>=dt) return;
-        this._soundcloudWidget.seekTo(p);
+        if(p<1) p=0;
+        if(p>=dt) return;
+        if(this.audioHTML.fastSeek){
+            this.audioHTML.fastSeek(p);
+        }else{
+            this.audioHTML.currentTime = p;
+        }
+    }
+
+    getPositionPercentage(){
+        if(!this.audioHTML) return;
+        return +(this.getPosition()*100/this.getDuration()).toFixed(1);
     }
 
 

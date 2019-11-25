@@ -5,8 +5,7 @@ const scWidget = new (class {
         this._SC_cliendId = '';
         this.$elmt = null;
         this.$parent = null;
-        this._soundcloudWidget = null;
-        this._soundcloudWidgetOptions = {
+        this._widgetOptions = {
             volume:100,
             progInterval:null,
             progCb:()=>{}
@@ -51,7 +50,28 @@ const scWidget = new (class {
 
     setProgressionCb(fn){
         // expected params: currentTime, currentTimePerc, duration
-        this._soundcloudWidgetOptions.progCb = fn;
+        this._widgetOptions.progCb = fn;
+    }
+
+    
+    callProgressionCb(){
+        this._widgetOptions.progCb(this.audioHTML.currentTime,this.getPositionPercentage(),this.audioHTML.duration);
+    }
+
+
+    _startProgEvent(){
+        if(!this._widgetOptions.progInterval){
+            this._widgetOptions.progInterval = window.setInterval(()=>{
+                this.callProgressionCb();
+            },800);
+        }
+    }
+
+    _stopProgEvent(){
+        if(this._widgetOptions.progInterval){
+            window.clearInterval(this._widgetOptions.progInterval);
+            this._widgetOptions.progInterval = null;
+        }
     }
 
 
@@ -74,7 +94,7 @@ const scWidget = new (class {
             });
         }
 
-        this._soundcloudWidgetOptions.progInterval = null;
+        this._widgetOptions.progInterval = null;
 
         this.play()
             .then(_ => updateMediaSessionData())
@@ -84,69 +104,54 @@ const scWidget = new (class {
     }
 
 
-
-
-
     play(){
-        if(!this._soundcloudWidgetOptions.progInterval){
-            this._soundcloudWidgetOptions.progInterval = window.setInterval(()=>{
-                this._soundcloudWidgetOptions.progCb(this.audioHTML.currentTime,this.audioHTML.getPositionPercentage(),this.audioHTML.duration);
-            },800);
-        }
+        this._startProgEvent();
         return this.audioHTML.play();
     }
 
     playToggle(){
         if(this.audioHTML.paused===false){
-            this.audioHTML.pause();
+            this.pause();
             return false;
         }
-        this.audioHTML.play();
+        this.play();
         return true;
     }
 
     pause(){
-        if(this._soundcloudWidgetOptions.progInterval){
-            window.clearInterval(this._soundcloudWidgetOptions.progInterval);
-            this._soundcloudWidgetOptions.progInterval = null;
-        }
+        this._stopProgEvent();
         return this.audioHTML.pause();
     }
 
     stop(){
-        return this.audioHTML.pause();
+        return this.pause();
     }
 
 
 
     getVolume(){
-        if(!this.audioHTML) return;
         return this.audioHTML.volume*100;
     }
 
     setVolume(v){
         // v=0-100
-        if(!this.audioHTML) return;
-        if(v!==0 && !v) v=this._soundcloudWidgetOptions.volume;
+        if(v!==0 && !v) v=this._widgetOptions.volume;
         v=Math.max(0,v);
         v=Math.min(100,v);
-        this._soundcloudWidgetOptions.volume=v;
+        this._widgetOptions.volume=v;
         this.audioHTML.volume = v/100;
     }
 
 
     getDuration(){
-        if(!this.audioHTML) return;
         return this.audioHTML.duration;
     }
 
     getPosition(){
-        if(!this.audioHTML) return;
         return this.audioHTML.currentTime;
     }
 
     setPosition(p, offset){
-        if(!this.audioHTML) return;
         const dt = this.getDuration();
         if(offset===true){
             const cp = this.getPosition();
@@ -158,7 +163,6 @@ const scWidget = new (class {
     }
 
     getPositionPercentage(){
-        if(!this.audioHTML) return;
         return +(this.getPosition()*100/this.getDuration()).toFixed(1);
     }
 

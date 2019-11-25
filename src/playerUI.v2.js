@@ -18,13 +18,11 @@ const playerUI = new (class {
 
         this.$acBox.find('.vol-less').click((e)=>{
             const v = scWidget.getVolume();
-            $warn(v);
             scWidget.setVolume(v-10);
         });
 
         this.$acBox.find('.vol-more').click((e)=>{
             const v = scWidget.getVolume();
-            $warn(v);
             scWidget.setVolume(v+10);
         });
 
@@ -40,17 +38,17 @@ const playerUI = new (class {
         this.$wfBoxFull.click((e)=>{
             const dt = scWidget.getDuration();
             scWidget.setPosition(dt * e.offsetX / this.$wfBoxFull.width(),false);
-            this.setProgressionStatus();
+            scWidget.callProgressionCb();
         });
 
         this.$nvBox.find('.skip-fw').click((e)=>{
             scWidget.setPosition(20,true);
-            this.setProgressionStatus();
+            scWidget.callProgressionCb();
         });
 
         this.$nvBox.find('.skip-rw').click((e)=>{
             scWidget.setPosition(-20,true);
-            this.setProgressionStatus();
+            scWidget.callProgressionCb();
         });
 
         this.$nvBox.find('.prev').click((e)=>{

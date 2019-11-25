@@ -3,11 +3,9 @@ const filterUI = new (class {
 
     constructor(){
         this.$fBox = jQuery("#sc-filter");
-        this.$fOpen = jQuery("#sc-filter .open");
-        this.$fClose = jQuery("#sc-filter .close");
-        this.$fOpenButton = jQuery("#sc-filter .open button.toggle");
-        this.$fCloseButton = jQuery("#sc-filter .close button.toggle");
-        this.$fResetButton = jQuery("#sc-filter .open button.resetf");
+        this.$fOpenButton = jQuery("#sc-tabs button.ot-filter");
+        this.$fCloseButton = jQuery("#sc-filter button.close");
+        this.$fResetButton = jQuery("#sc-filter button.resetf");
         this.$fSearchButton = jQuery("#fr_gosearch");
 
         this.$input = {
@@ -28,13 +26,11 @@ const filterUI = new (class {
         }
 
         this.$fCloseButton.click((e)=>{
-            this.$fClose.hide();
-            this.$fOpen.show(200);
+            this.$fBox.hide(200);
         });
 
         this.$fOpenButton.click((e)=>{
-            this.$fClose.show();
-            this.$fOpen.hide(200);
+            this.$fBox.show(200);
         });
 
         this.$fResetButton.click((e)=>{
@@ -51,8 +47,7 @@ const filterUI = new (class {
                 $warn("filterUI - No tracks found");
             }
             playlistMgr.reset(tracks);
-            this.$fClose.show();
-            this.$fOpen.hide(200);
+            this.$fBox.hide(200);
             mainUI.$overlay1.hide();
         });
     }

@@ -32,57 +32,54 @@
     <section class="main-container">
         <section>
 
-            <section id="sc-filter" class="bigsection" style="background-color:#F7F7F7;font-size:0.9em;">
-                <section class="close" style="display:none;">
-                    <div>
-                        <button class="toggle">open filter</button>
-                    </div>
-                </section>
-                <section class="open">
-                    <div>
-                        <button class="toggle">close filter</button>
-                        <button class="resetf">reset filter</button>
-                    </div>
-                    <p>
-                        Query
-                        <input id="fr_query" type="text" value="" />
-                    </p>
-                    <!-- <p>
-                        Genres
-                        <input id="fr_genres" type="text" value="" />
-                    </p> -->
-                    <p>
-                        Tags
-                        <input id="fr_tags" type="text" value="" />
-                    </p>
-                    <p>
-                        Download
-                        <input id="fr_download" type="checkbox" />
-                    </p>
-                    <p>
-                        Date: from
-                        <input id="fr_datefrom" type="text" value="" style="width:90px;" />
-                        to
-                        <input id="fr_dateto" type="text" value="" style="width:90px;" />
-                        <small>(yyyy-mm-dd)</small>
-                    </p>
-                    <p>
-                        Followers: min
-                        <input id="fr_fw_min" type="text" value="" style="width:40px;" />
-                        max
-                        <input id="fr_fw_max" type="text" value="" style="width:40px;" />
-                    </p>
-                    <p>
-                        Duration: min
-                        <input id="fr_drt_min" type="text" value="" style="width:30px;" />
-                        max
-                        <input id="fr_drt_max" type="text" value="" style="width:30px;" />
-                        <small>(minutes)</small>
-                    </p>
-                    <p>
-                        <button id="fr_gosearch">search</button>
-                    </p>
-                </section>
+            <section id="sc-tabs" class="bigsection" style="background-color:#F7F7F7;font-size:0.9em;">
+                <button class="ot-filter">filter</button>
+            </section>
+
+            <section id="sc-filter" class="bigsection">
+                <div>
+                    <button class="close">close filter</button>
+                    <button class="resetf">reset filter</button>
+                </div>
+                <p>
+                    Query
+                    <input id="fr_query" type="text" value="" />
+                </p>
+                <!-- <p>
+                    Genres
+                    <input id="fr_genres" type="text" value="" />
+                </p> -->
+                <p>
+                    Tags
+                    <input id="fr_tags" type="text" value="" />
+                </p>
+                <p>
+                    Download
+                    <input id="fr_download" type="checkbox" />
+                </p>
+                <p>
+                    Date: from
+                    <input id="fr_datefrom" type="text" value="" style="width:90px;" />
+                    to
+                    <input id="fr_dateto" type="text" value="" style="width:90px;" />
+                    <small>(yyyy-mm-dd)</small>
+                </p>
+                <p>
+                    Followers: min
+                    <input id="fr_fw_min" type="text" value="" style="width:40px;" />
+                    max
+                    <input id="fr_fw_max" type="text" value="" style="width:40px;" />
+                </p>
+                <p>
+                    Duration: min
+                    <input id="fr_drt_min" type="text" value="" style="width:30px;" />
+                    max
+                    <input id="fr_drt_max" type="text" value="" style="width:30px;" />
+                    <small>(minutes)</small>
+                </p>
+                <p>
+                    <button id="fr_gosearch">search</button>
+                </p>
             </section>
 
             <section id="sc-player" class="bigsection" style="display:none;">

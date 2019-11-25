@@ -97,9 +97,13 @@ const playerUI = new (class {
             await playlistMgr.playNext();
         });
 
-        scWidget.addEventCb(scWidget.EVENTS.PROGRESS,()=>{
-            $d('playerUI - scWidget PROGRESS');
-            this.setProgressionStatus();
+        // scWidget.addEventCb(scWidget.EVENTS.PROGRESS,()=>{
+        //     $d('playerUI - scWidget PROGRESS');
+        //     this.setProgressionStatus();
+        // });
+
+        scWidget.setProgressionCb((currentTime, currentTimePerc, duration)=>{
+            this.$wfBoxProg.css({ 'width':currentTimePerc+'%' });
         });
 
         navigator.mediaSession.setActionHandler('previoustrack', async ()=>{
@@ -146,12 +150,6 @@ const playerUI = new (class {
 
     setPlayingStatus(){
         this.$nvBox.find('.play').html('&#9723;');
-    }
-
-
-    setProgressionStatus(){
-        const p = scWidget.getPositionPercentage();
-        this.$wfBoxProg.css({ 'width':p+'%' });
     }
 
 });

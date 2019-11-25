@@ -4,11 +4,12 @@ const scWidget = new (class {
     constructor(){
         this._SC_cliendId = '';
         this.$elmt = null;
-        this.audioElmt = null;
         this.$parent = null;
         this._soundcloudWidget = null;
         this._soundcloudWidgetOptions = {
-            volume:50
+            volume:100,
+            progInterval:null,
+            progCb:()=>{}
         };
 
         this.EVENTS = {
@@ -48,6 +49,11 @@ const scWidget = new (class {
         });
     }
 
+    setProgressionCb(fn){
+        // expected params: currentTime, currentTimePerc, duration
+        this._soundcloudWidgetOptions.progCb = fn;
+    }
+
 
     changeTrack(id, track){
         if(!this.audioHTML) this._createElement();
@@ -68,6 +74,8 @@ const scWidget = new (class {
             });
         }
 
+        this._soundcloudWidgetOptions.progInterval = null;
+
         this.play()
             .then(_ => updateMediaSessionData())
             .catch(console.error);
@@ -80,6 +88,11 @@ const scWidget = new (class {
 
 
     play(){
+        if(!this._soundcloudWidgetOptions.progInterval){
+            this._soundcloudWidgetOptions.progInterval = window.setInterval(()=>{
+                this._soundcloudWidgetOptions.progCb(this.audioHTML.currentTime,this.audioHTML.getPositionPercentage(),this.audioHTML.duration);
+            },800);
+        }
         return this.audioHTML.play();
     }
 
@@ -93,6 +106,10 @@ const scWidget = new (class {
     }
 
     pause(){
+        if(this._soundcloudWidgetOptions.progInterval){
+            window.clearInterval(this._soundcloudWidgetOptions.progInterval);
+            this._soundcloudWidgetOptions.progInterval = null;
+        }
         return this.audioHTML.pause();
     }
 
@@ -137,11 +154,7 @@ const scWidget = new (class {
         }
         if(p<1) p=0;
         if(p>=dt) return;
-        if(this.audioHTML.fastSeek){
-            this.audioHTML.fastSeek(p);
-        }else{
-            this.audioHTML.currentTime = p;
-        }
+        this.audioHTML.currentTime = p;
     }
 
     getPositionPercentage(){

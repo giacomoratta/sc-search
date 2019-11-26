@@ -121,7 +121,7 @@ const playerUI = new (class {
         const t = this.currentTrack;
 
         const $artwork_img = this.$acBox.find('.artwork img');
-        $artwork_img.attr('src',t.artwork_url);
+        $artwork_img.attr('src',t.artwork_url || t.user.avatar_url);
         $artwork_img.attr('title',t.user.username+' - '+t.title);
         $artwork_img.attr('alt',t.user.username+' - '+t.title);
 

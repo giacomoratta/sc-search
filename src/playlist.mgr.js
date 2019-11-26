@@ -16,12 +16,6 @@ const playlistMgr = new (class {
             playPrev:false
         };
 
-        // this.$pLoadmoreBtn.click((e)=>{
-        //     scTracksMgr.searchTracks().then((tracks)=>{
-        //         playlistMgr.addTracks(tracks);
-        //     });
-        // });
-
         this.currentTrack = {
             element:null,
             id:null
@@ -128,7 +122,7 @@ const playlistMgr = new (class {
                     </div>
                     <div class="kv_box small tstats">
                         <div class="likes"><span class="value">${t.likes_count}</span> <span class="label">likes</span> //</div>
-                        <div class="plays"><span class="value">${t.playback_count}</span> <span class="label">plays</span> //</div>
+                        <!--div class="plays"><span class="value">${t.playback_count}</span> <span class="label">plays</span> //</div-->
                         <div class="reposts"><span class="value">${t.reposts_count}</span> <span class="label">reposts</span></div>
                         ${t.downloadable ? `<div class="downloads">// <span class="value">${t.download_count}</span> <span class="label">downloads</span></div>` : '' }
                         ${t.downloadable ? `<div class="downloadable">// <strong>D</strong></div>` : '' }

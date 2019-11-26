@@ -3,13 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title>SC Search</title>
+    <title>MooV</title>
     <meta name="viewport" content="width=device-width">
-
-    <!-- <link rel="stylesheet" href="tpl/mchui/bootstrap-4.3/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="tpl/mchui/bootstrap-4.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="tpl/mchui/bootstrap-4.3/css/bootstrap-grid.min.css"> -->
+    <link rel="icon" type="image/png" href="favicon.png" />
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sections.css">
@@ -161,42 +159,41 @@
             <div class="items">
 
             </div>
-            <!-- <div>
-                <button class="pl_loadmore">...load more...</button>
-            </div> -->
         </section>
     </section>
 
 
-<script src="src/soundcloudAPI.js"></script>
-<script src="src/utils.js"></script>
-<script src="src/string.utils.js"></script>
-<script src="src/mainUI.js"></script>
-<script src="src/scWidget.v2.js"></script>
-<script src="src/trackInfoUI.js"></script>
-<script src="src/userInfoUI.js"></script>
-<script src="src/scTracks.mgr.js"></script>
-<script src="src/playlist.mgr.js"></script>
-<script src="src/playerUI.v2.js"></script>
-<script src="src/filterUI.js"></script>
+    <script src="src/soundcloudAPI.js"></script>
+    <script src="src/utils.js"></script>
+    <script src="src/string.utils.js"></script>
+    <script src="src/mainUI.js"></script>
+    <script src="src/scWidget.v2.js"></script>
+    <script src="src/trackInfoUI.js"></script>
+    <script src="src/userInfoUI.js"></script>
+    <script src="src/scTracks.mgr.js"></script>
+    <script src="src/playlist.mgr.js"></script>
+    <script src="src/playerUI.v2.js"></script>
+    <script src="src/filterUI.js"></script>
 
-<script>
+    <script>
 
-    SC.initialize({
-        client_id: 'FXiLZSR7d77KWcTmDJ6Sg2MhGjFI1bYO',
-        redirect_uri: 'http://www.mpl.cloud/apps/tksearch'
-    });
+        SC.initialize({
+            client_id: 'FXiLZSR7d77KWcTmDJ6Sg2MhGjFI1bYO',
+            redirect_uri: 'http://www.mpl.cloud/apps/tksearch'
+        });
 
-//     SC.connect().then(function() {
-//   return SC.get('/me');
-// }).then(function(me) {
-//   alert('Hello, ' + me.username);
-// });
+        scWidget.setSoundcloudClientID("FXiLZSR7d77KWcTmDJ6Sg2MhGjFI1bYO");
+        scWidget.setParent("#sc-player");
 
-    scWidget.setSoundcloudClientID("FXiLZSR7d77KWcTmDJ6Sg2MhGjFI1bYO");
-    scWidget.setParent("#sc-player");
+        scWidget.onTrackPlaying = (t)=>{
+            document.title = '\u25B6 '+t.title+' - '+t.user.username + ' playing / MooV';
+        }
 
-</script>
+        scWidget.onTrackPaused = (t)=>{
+            document.title = '\u25FC '+t.title+' - '+t.user.username + ' paused / MooV';
+        }
+
+    </script>
 
 
 </body>

@@ -5,6 +5,7 @@ const scWidget = new (class {
         this._SC_cliendId = '';
         this.$elmt = null;
         this.$parent = null;
+        this.currentTrack = null;
         this._widgetOptions = {
             volume:100,
             progInterval:null,
@@ -16,6 +17,9 @@ const scWidget = new (class {
             ENDED:'ended',
         };
         this.EventCallbacks = {};
+
+        this.onTrackPlaying = function(){};
+        this.onTrackPaused = function(){};
     }
 
     _createElement(){
@@ -79,6 +83,7 @@ const scWidget = new (class {
         if(!this.audioHTML) this._createElement();
         this.stop();
 
+        this.currentTrack = track;
         let basic_url = track.stream_url+'?client_id='+this._SC_cliendId;
         this.audioHTML.src = basic_url;
         this.audioHTML.muted = false;
@@ -90,7 +95,7 @@ const scWidget = new (class {
                 title: track.title,
                 artist: track.user.username,
                 album: '',
-                artwork: [ { src:track.artwork_url } ]
+                artwork: [ { src:track.artwork_url || track.user.avatar_url, sizes: '100x100', type: 'image/jpeg' } ]
             });
         }
 
@@ -106,6 +111,7 @@ const scWidget = new (class {
 
     play(){
         this._startProgEvent();
+        if(this.currentTrack) this.onTrackPlaying(this.currentTrack);
         return this.audioHTML.play();
     }
 
@@ -120,6 +126,7 @@ const scWidget = new (class {
 
     pause(){
         this._stopProgEvent();
+        if(this.currentTrack) this.onTrackPaused(this.currentTrack);
         return this.audioHTML.pause();
     }
 

@@ -28,10 +28,10 @@
     <div id="overlay1" class="overlay" style="display:none;"><div class="text">Loading...</div></div>
 
     <section class="main-container">
-        <section>
-
+        <section class="mcc1">
             <section id="sc-tabs" class="bigsection" style="background-color:#F7F7F7;font-size:0.9em;">
                 <button class="ot-filter">filter</button>
+                <button class="ot-playlist">playlist</button>
             </section>
 
             <section id="sc-filter" class="bigsection">
@@ -83,7 +83,7 @@
             <section id="sc-player" class="bigsection" style="display:none;">
                 <section id="sc-artwkctrls" class="smbox">
                     <section class="artwork">
-                        <img src="https://dummyimage.com/600x400/000/fff" title="" alt="" />
+                        <img src="" title="" alt="" />
                     </section>
                     <section class="side cntrls">
                         <div class="top">
@@ -116,7 +116,9 @@
                     <button class="comment">comment</button>
                 </section>
             </section>
+        </section>
 
+        <section class="mcc2">
             <section id="sc-trackinfo" class="bigsection" style="display:none;">
                 <div class="smbox overview">
                     <div class="title"><a href="#linkto" target="blank">track name</a></div>
@@ -152,10 +154,9 @@
                         The Date object is a built-in object in JavaScript that stores the date and time. It provides a number of built-in methods for formatting and managing that data. By default, a new Date instance without arguments provided creates an object corresponding to the current date and time.
                 </div>
             </section>
-
         </section>
 
-        <section id="sc-playlist" class="bigsection">
+        <section id="sc-playlist" class="mcc3 bigsection">
             <div class="items">
 
             </div>
@@ -192,6 +193,56 @@
         scWidget.onTrackPaused = (t)=>{
             document.title = '\u25FC '+t.title+' - '+t.user.username + ' paused / MooV';
         }
+
+    </script>
+
+
+    <script>
+        /* UI */
+        const $ = jQuery;
+
+        const $mcc1 = $('.mcc1');
+        const $mcc2 = $('.mcc2');
+        const $mcc3 = $('.mcc3');
+
+        const $showPlaylistBtn = $('#sc-tabs .ot-playlist');
+        $showPlaylistBtn.click(()=>{
+            if($(window).width()>=700){
+                if($mcc3.hasClass('sidebox')){
+                    // disappear animation
+                    $mcc3.attr('class','mcc3');
+                }else{
+                    // appear animation
+                    $mcc3.attr('class','mcc3 sidebox');
+                }
+
+            }else{
+                if($mcc3.hasClass('absbox')){
+                    // disappear animation
+                    $mcc3.attr('class','mcc3');
+                }else{
+                    // appear animation
+                    $mcc3.attr('class','mcc3 absbox');
+                }
+            }
+        })
+
+
+        const $trackArtwork = $('#sc-artwkctrls .artwork img');
+        $trackArtwork.click(()=>{
+            if($(window).width()>=700){
+                return;
+
+            }else{
+                if($mcc2.hasClass('absbox')){
+                    // disappear animation
+                    $mcc2.attr('class','mcc2');
+                }else{
+                    // appear animation
+                    $mcc2.attr('class','mcc2 absbox');
+                }
+            }
+        })
 
     </script>
 

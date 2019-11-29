@@ -76,8 +76,8 @@ const playerUI = new (class {
             comment.body = this.$cmBoxTextInput.val();
             if(!comment.body || comment.body.length<2) return;
 
-            comment.timestamp = scWidget.getPosition();
-            const tduration = scWidget.getDuration();
+            comment.timestamp = scWidget.getPosition()*1000;
+            const tduration = scWidget.getDuration()*1000;
             const tduration_std = tduration*9/10;
             if(!comment.timestamp) comment.timestamp=tduration_std;
             comment.timestamp=Math.max(comment.timestamp,30000);

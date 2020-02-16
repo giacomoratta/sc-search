@@ -1,3 +1,23 @@
+.mcc2 { display: none; }
+.mcc3 { display: none; }
+
+.mcc1, .mcc2, .mcc3 {
+    height: auto;
+}
+
+@media ( min-width: 700px) {
+    .mcc2 {
+        display: block;
+        margin-left: 16px;
+    }
+}
+@media ( min-width: 900px) {
+    .mcc3 {
+        display: block;
+        margin-left: 16px;
+    }
+}
+
 
 .mcc1, .mcc2, .mcc3 {
     height: auto;

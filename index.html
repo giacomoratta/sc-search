@@ -168,14 +168,14 @@
     <script src="src/soundcloudAPI.js"></script>
     <script src="src/utils.js"></script>
     <script src="src/string.utils.js"></script>
-    <script src="src/mainUI.js"></script>
+    <script src="ui_src/mainUI.js"></script>
     <script src="src/scWidget.v2.js"></script>
-    <script src="src/trackInfoUI.js"></script>
-    <script src="src/userInfoUI.js"></script>
+    <script src="ui_src/trackInfoUI.js"></script>
+    <script src="ui_src/userInfoUI.js"></script>
     <script src="src/scTracks.mgr.js"></script>
     <script src="src/playlist.mgr.js"></script>
-    <script src="src/playerUI.v2.js"></script>
-    <script src="src/filterUI.js"></script>
+    <script src="ui_src/playerUI.v2.js"></script>
+    <script src="ui_src/filterUI.js"></script>
 
     <script>
 
@@ -194,6 +194,56 @@
         scWidget.onTrackPaused = (t)=>{
             document.title = '\u25FC '+t.title+' - '+t.user.username + ' paused / MooV';
         }
+
+    </script>
+
+
+    <script>
+        /* UI */
+        const $ = jQuery;
+
+        const $mcc1 = $('.mcc1');
+        const $mcc2 = $('.mcc2');
+        const $mcc3 = $('.mcc3');
+
+        const $showPlaylistBtn = $('#sc-tabs .ot-playlist');
+        $showPlaylistBtn.click(()=>{
+            if($(window).width()>=700){
+                if($mcc3.hasClass('sidebox')){
+                    // disappear animation
+                    $mcc3.attr('class','mcc3');
+                }else{
+                    // appear animation
+                    $mcc3.attr('class','mcc3 sidebox');
+                }
+
+            }else{
+                if($mcc3.hasClass('absbox')){
+                    // disappear animation
+                    $mcc3.attr('class','mcc3');
+                }else{
+                    // appear animation
+                    $mcc3.attr('class','mcc3 absbox');
+                }
+            }
+        })
+
+
+        const $trackArtwork = $('#sc-artwkctrls .artwork img');
+        $trackArtwork.click(()=>{
+            if($(window).width()>=700){
+                return;
+
+            }else{
+                if($mcc2.hasClass('absbox')){
+                    // disappear animation
+                    $mcc2.attr('class','mcc2');
+                }else{
+                    // appear animation
+                    $mcc2.attr('class','mcc2 absbox');
+                }
+            }
+        })
 
     </script>
 

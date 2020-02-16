@@ -1,3 +1,41 @@
+.mcc2 { display: none; }
+.mcc3 { display: none; }
+
+.mcc1, .mcc2, .mcc3 {
+    height: auto;
+}
+
+@media ( min-width: 700px) {
+    .mcc2 {
+        display: block;
+        margin-left: 16px;
+    }
+}
+@media ( min-width: 900px) {
+    .mcc3 {
+        display: block;
+        margin-left: 16px;
+    }
+}
+
+
+.mcc1, .mcc2, .mcc3 {
+    height: auto;
+}
+
+@media ( min-width: 700px) {
+    .mcc2 {
+        display: block;
+        margin-left: 16px;
+    }
+}
+@media ( min-width: 900px) {
+    .mcc3 {
+        display: block;
+        margin-left: 16px;
+    }
+}
+
 
 .overlay {
     background-color: #000C;
@@ -18,7 +56,6 @@ color: #FFFFFF;
 }
 
 .bigsection {
-    border-radius: 3px;
     padding:16px;
     margin-bottom: 16px;
 }
@@ -46,15 +83,15 @@ color: #FFFFFF;
 }
 
 
-
 #sc-playlist {
-    height: 600px;
     overflow: auto;
 }
+
 
 @media ( min-width: 700px) {
     .bigsection {
         border:1px solid #DDDDDD;
+        border-radius: 3px;
     }
     section.main-container {
         display: flex;
@@ -64,17 +101,13 @@ color: #FFFFFF;
     section.main-container > section {
         flex:1;
     }
-    #sc-playlist {
-        width: 46%;
-        margin-left: 2%;
-    }
-    #sc-playlist {
-        height: auto
-    }
 }
 
 
-
+#sc-tabs {
+    background-color: #F7F7F7;
+    font-size: 0.9em;
+}
 
 #sc-artwkctrls {
     position: relative;
@@ -168,6 +201,7 @@ color: #FFFFFF;
 }
 #sc-comments input {
     flex-grow: 1;
+    margin-right: 0.6em;
 }
 
 
@@ -186,7 +220,7 @@ color: #FFFFFF;
     background-color: rgb(85, 85, 85);
     top: 0px;
     left: 0px;
-    width: 65%;
+    width: 0%;
     position: absolute;
     z-index: 10;
 }
@@ -231,8 +265,21 @@ color: #FFFFFF;
 /* playlist items */
 
 #sc-playlist {
+    display: none;
     padding: 0;
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    z-index: 2000;
 }
+
+@media ( min-width: 900px) {
+    #sc-playlist {
+        position: static;
+        display: block;
+    }
+}
+
 #sc-playlist .items {
     position: relative;
 }

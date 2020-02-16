@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
     <title>MooV</title>
@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/darkmode.css">
 
     <script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
     <script src="https://w.soundcloud.com/player/api.js"></script>
@@ -28,15 +29,15 @@
     <div id="overlay1" class="overlay" style="display:none;"><div class="text">Loading...</div></div>
 
     <section class="main-container">
-        <section>
-
-            <section id="sc-tabs" class="bigsection" style="background-color:#F7F7F7;font-size:0.9em;">
+        <section class="mcc1">
+            <section id="sc-tabs" class="bigsection">
                 <button class="ot-filter">filter</button>
+                <button class="ot-playlist">playlist</button>
             </section>
 
             <section id="sc-filter" class="bigsection">
                 <div>
-                    <button class="close">close filter</button>
+                    <!--<button class="close">close filter</button>-->
                     <button class="resetf">reset filter</button>
                 </div>
                 <p>
@@ -83,16 +84,16 @@
             <section id="sc-player" class="bigsection" style="display:none;">
                 <section id="sc-artwkctrls" class="smbox">
                     <section class="artwork">
-                        <img src="https://dummyimage.com/600x400/000/fff" title="" alt="" />
+                        <img src="" title="" alt="" />
                     </section>
                     <section class="side cntrls">
                         <div class="top">
-                            <button class="vol-more">v+</button>
-                            <button class="vol-less">v-</button>
+                            <button class="vol-more">🔊</button>
+                            <button class="vol-less">🔉</button>
                         </div>
                         <div class="bottom">
-                            <button class="like">&hearts;</button>
-                            <button class="repost">&reg;</button>
+                            <button class="like">❤</button>
+                            <button class="repost">↩</button>
                         </div>
                     </section>
                 </section>
@@ -116,7 +117,9 @@
                     <button class="comment">comment</button>
                 </section>
             </section>
+        </section>
 
+        <section class="mcc2">
             <section id="sc-trackinfo" class="bigsection" style="display:none;">
                 <div class="smbox overview">
                     <div class="title"><a href="#linkto" target="blank">track name</a></div>
@@ -152,10 +155,9 @@
                         The Date object is a built-in object in JavaScript that stores the date and time. It provides a number of built-in methods for formatting and managing that data. By default, a new Date instance without arguments provided creates an object corresponding to the current date and time.
                 </div>
             </section>
-
         </section>
 
-        <section id="sc-playlist" class="bigsection">
+        <section id="sc-playlist" class="mcc3 bigsection">
             <div class="items">
 
             </div>
@@ -194,7 +196,6 @@
         }
 
     </script>
-
 
 </body>
 </html>

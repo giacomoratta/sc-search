@@ -80,10 +80,10 @@ const playerUI = new (class {
             const tduration = scWidget.getDuration();
             const tduration_std = tduration*9/10;
             if(!comment.timestamp) comment.timestamp=tduration_std;
-            comment.timestamp=Math.max(comment.timestamp,30000);
-            comment.timestamp=Math.min(comment.timestamp,tduration_std);
+            comment.timestamp *= 1000
+            comment.timestamp=Math.max(comment.timestamp,10000);
+            comment.timestamp=Math.min(comment.timestamp,tduration_std * 1000);
             comment.timestamp=Math.round(comment.timestamp);
-
             let [err,tracks] = await uu.to(soundcloudAPI.postComment(playlistMgr.currentTrack.id,comment));
             if(err) $d(err,tracks);
             else this.$cmBoxTextInput.val('')

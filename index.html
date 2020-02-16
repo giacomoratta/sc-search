@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
     <title>MooV</title>
@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/darkmode.css">
 
     <script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
     <script src="https://w.soundcloud.com/player/api.js"></script>
@@ -29,14 +30,14 @@
 
     <section class="main-container">
         <section class="mcc1">
-            <section id="sc-tabs" class="bigsection" style="background-color:#F7F7F7;font-size:0.9em;">
+            <section id="sc-tabs" class="bigsection">
                 <button class="ot-filter">filter</button>
                 <button class="ot-playlist">playlist</button>
             </section>
 
             <section id="sc-filter" class="bigsection">
                 <div>
-                    <button class="close">close filter</button>
+                    <!--<button class="close">close filter</button>-->
                     <button class="resetf">reset filter</button>
                 </div>
                 <p>
@@ -87,12 +88,12 @@
                     </section>
                     <section class="side cntrls">
                         <div class="top">
-                            <button class="vol-more">v+</button>
-                            <button class="vol-less">v-</button>
+                            <button class="vol-more">🔊</button>
+                            <button class="vol-less">🔉</button>
                         </div>
                         <div class="bottom">
-                            <button class="like">&hearts;</button>
-                            <button class="repost">&reg;</button>
+                            <button class="like">❤</button>
+                            <button class="repost">↩</button>
                         </div>
                     </section>
                 </section>
@@ -193,56 +194,6 @@
         scWidget.onTrackPaused = (t)=>{
             document.title = '\u25FC '+t.title+' - '+t.user.username + ' paused / MooV';
         }
-
-    </script>
-
-
-    <script>
-        /* UI */
-        const $ = jQuery;
-
-        const $mcc1 = $('.mcc1');
-        const $mcc2 = $('.mcc2');
-        const $mcc3 = $('.mcc3');
-
-        const $showPlaylistBtn = $('#sc-tabs .ot-playlist');
-        $showPlaylistBtn.click(()=>{
-            if($(window).width()>=700){
-                if($mcc3.hasClass('sidebox')){
-                    // disappear animation
-                    $mcc3.attr('class','mcc3');
-                }else{
-                    // appear animation
-                    $mcc3.attr('class','mcc3 sidebox');
-                }
-
-            }else{
-                if($mcc3.hasClass('absbox')){
-                    // disappear animation
-                    $mcc3.attr('class','mcc3');
-                }else{
-                    // appear animation
-                    $mcc3.attr('class','mcc3 absbox');
-                }
-            }
-        })
-
-
-        const $trackArtwork = $('#sc-artwkctrls .artwork img');
-        $trackArtwork.click(()=>{
-            if($(window).width()>=700){
-                return;
-
-            }else{
-                if($mcc2.hasClass('absbox')){
-                    // disappear animation
-                    $mcc2.attr('class','mcc2');
-                }else{
-                    // appear animation
-                    $mcc2.attr('class','mcc2 absbox');
-                }
-            }
-        })
 
     </script>
 

@@ -3,8 +3,7 @@ const filterUI = new (class {
 
     constructor(){
         this.$fBox = jQuery("#sc-filter");
-        this.$fOpenButton = jQuery("#sc-tabs button.ot-filter");
-        this.$fCloseButton = jQuery("#sc-filter button.close");
+        //this.$fCloseButton = jQuery("#sc-filter button.close");
         this.$fResetButton = jQuery("#sc-filter button.resetf");
         this.$fSearchButton = jQuery("#fr_gosearch");
 
@@ -25,13 +24,9 @@ const filterUI = new (class {
             this.setDefaultValues();
         }
 
-        this.$fCloseButton.click((e)=>{
+        /*this.$fCloseButton.click((e)=>{
             this.$fBox.hide(200);
-        });
-
-        this.$fOpenButton.click((e)=>{
-            this.$fBox.show(200);
-        });
+        });*/
 
         this.$fResetButton.click((e)=>{
             this.setDefaultValues();
@@ -49,7 +44,12 @@ const filterUI = new (class {
             playlistMgr.reset(tracks);
             this.$fBox.hide(200);
             mainUI.$overlay1.hide();
+            playlistMgr.showPlaylistUI();
         });
+    }
+
+    toggleBox(){
+        this.$fBox.toggle(200);
     }
 
 

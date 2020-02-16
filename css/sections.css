@@ -1,5 +1,3 @@
-.mcc2 { display: none; }
-.mcc3 { display: none; }
 
 .mcc1, .mcc2, .mcc3 {
     height: auto;
@@ -38,7 +36,6 @@ color: #FFFFFF;
 }
 
 .bigsection {
-    border-radius: 3px;
     padding:16px;
     margin-bottom: 16px;
 }
@@ -74,6 +71,7 @@ color: #FFFFFF;
 @media ( min-width: 700px) {
     .bigsection {
         border:1px solid #DDDDDD;
+        border-radius: 3px;
     }
     section.main-container {
         display: flex;
@@ -86,6 +84,10 @@ color: #FFFFFF;
 }
 
 
+#sc-tabs {
+    background-color: #F7F7F7;
+    font-size: 0.9em;
+}
 
 #sc-artwkctrls {
     position: relative;
@@ -179,6 +181,7 @@ color: #FFFFFF;
 }
 #sc-comments input {
     flex-grow: 1;
+    margin-right: 0.6em;
 }
 
 
@@ -242,8 +245,21 @@ color: #FFFFFF;
 /* playlist items */
 
 #sc-playlist {
+    display: none;
     padding: 0;
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    z-index: 2000;
 }
+
+@media ( min-width: 900px) {
+    #sc-playlist {
+        position: static;
+        display: block;
+    }
+}
+
 #sc-playlist .items {
     position: relative;
 }

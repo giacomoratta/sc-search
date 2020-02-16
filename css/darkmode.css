@@ -1,0 +1,55 @@
+
+body {
+    color: #AAAAAA;
+    background: #1C1C1C;
+}
+a {
+    color: #8c4cd4;
+    text-decoration: none;
+}
+
+.bigsection {
+    background: #1C1C1C;
+}
+
+#sc-playlist .item, .bigsection {
+    border-color: #444444;
+}
+#sc-trackinfo .trackdesc, 
+#sc-userinfo .userdesc,
+#sc-artwkctrls .cntrls button {
+    color: #888888;
+}
+
+button {
+    background-color: #38244e;
+    color: #b59cd2;
+    border: none;
+    padding: 0.5em 1.8em;
+    border-radius: 3px;
+}
+
+input {
+    border-radius: 2px;
+    border: none;
+    padding: 0.2em 0.5em;
+    background: #555555;
+    color: #DDDDDD;
+}
+
+#sc-pnav button,
+#sc-pnav button.sm,
+#sc-artwkctrls .cntrls button {
+    background-color: #38244e;
+    color: #b59cd2;
+    border: none;
+}
+
+#sc-tabs {
+    background-color: #574869;
+}
+
+#sc-playlist .item.playing {
+    background-color: #3F3F3F;
+    color: #CCC;
+}

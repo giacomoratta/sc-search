@@ -22,6 +22,38 @@ const playlistMgr = new (class {
         }
     }
 
+    __setPlaylistUI() {
+        this.$pBox.css({
+            top: (Math.round(mainUI.$tabsBox.outerHeight() + mainUI.$tabsBox.offset().top)+8).toString().concat('px'),
+            left: mainUI.$tabsBox.offset().top.toString().concat('px')
+        })
+    }
+
+    showPlaylistUI() {
+        this.__setPlaylistUI()
+        this.$pBox.show(200, () => {
+            this.scrollToPlaying();
+        });
+    }
+
+    hidePlaylistUI() {
+        if(jQuery(window).width()>900) return
+        this.$pBox.hide(200)
+    }
+
+    togglePlaylistUI() {
+        this.__setPlaylistUI();
+        this.$pBox.toggle(200, () => {
+            this.scrollToPlaying();
+        });
+    }
+
+    scrollToPlaying() {
+        const $element=this.$pBoxItems.find('.item.playing:first');
+        if(!$element || !$element.position() || !$element.position().top) return
+        this.$pBox.scrollTop(Math.max(0,($element.position().top-100)));
+    }
+
     reset(tracks){
         this.$pBoxItems.html('');
         if(!tracks){
@@ -41,11 +73,12 @@ const playlistMgr = new (class {
 
         this.$pBoxItems.find('.item').removeClass('playing');
         $element.addClass('playing');
-        this.$pBox.scrollTop(Math.max(0,($element.position().top-100)));
-
+    
         playerUI.play(this.currentTrack.id);
         trackInfoUI.setInfo(this.currentTrack.id);
         userInfoUI.setInfo(this.currentTrack.id);
+        this.scrollToPlaying();
+        this.hidePlaylistUI();
     }
 
     markEvent(name,marked){

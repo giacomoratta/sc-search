@@ -49,7 +49,13 @@ input {
     background-color: #574869;
 }
 
-#sc-playlist .item.playing {
-    background-color: #3F3F3F;
+#sc-playlist {
+    background: #1C1C1C;
+}
+
+#sc-playlist .item.playing,
+#sc-playlist .item.active,
+#sc-playlist .item:hover, #sc-playlist .item:active {
+    background-color: #322f3c;
     color: #CCC;
 }
